@@ -1,7 +1,6 @@
 <?php
 
-require_once '../../vendor/autoload.php';
-//$file = "../../asset/documents/3.pdf";
+require_once '../../env.php';
 
 $mpdf = new \Mpdf\Mpdf();
 
@@ -13,26 +12,33 @@ $target_dir = "../../uploads/";
 
 $file_tmp = $_FILES['file']['tmp_name'];
 $file_name = $_FILES["file"]["name"];
+$file_location = $target_dir.$file_name;
 
 try{
-    move_uploaded_file($file_tmp,$target_dir.$file_name);
+    move_uploaded_file($file_tmp,$file_location);
 }catch (Exception $e){
     var_dump($e);exit();
 }
 
 
 $mpdf->SetImportUse();
-$totalPage = $mpdf->SetSourceFile($target_dir.$file_name);
+$totalPage = $mpdf->SetSourceFile($file_location);
+
+$job = ['file' => $file_location, 'total_page' => $totalPage];
+$_SESSION['jobs'][1] = $job;
+
 ?>
 
-Total Page : <?= $totalPage; ?><br>
-Colour:<br>
-<input type="radio" name="colour" value="yes"> Colour<br>
-<input type="radio" name="colour" value="no"> Black & White
+<form action="job-step-3.php" method="post">
+    Total Page : <?= $totalPage; ?><br>
+    Colour:<br>
+    <input type="radio" name="colour" value="1" required> Colour<br>
+    <input type="radio" name="colour" value="0" required> Black & White
+    <br><h2>Total Price : RM<span id="total_price">0.00</span></h2>
 
-
-
-<br><h2>Total Price : RM<span id="total_price">0.00</span></h2>
+    <a href="job-step-1.php">Previous</a>
+    <button type="submit">Next</button>
+</form>
 
 
 <script type="text/javascript" src="../../asset/js/jquery.js"></script>
@@ -41,10 +47,10 @@ Colour:<br>
 
         var total_price, rate, total_page = <?= $totalPage; ?>;
 
-        if (this.value == 'yes') {
+        if (this.value == '1') {
             rate = <?= $c ?>;
         }
-        else if (this.value == 'no') {
+        else if (this.value == '0') {
             rate = <?= $bnw ?>;
         }
 
