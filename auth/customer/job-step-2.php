@@ -9,7 +9,7 @@ $c = 0.20;
 $bnw = 0.10;
 
 
-$target_dir = "../../asset/documents/";
+$target_dir = "../../uploads/";
 
 $file_tmp = $_FILES['file']['tmp_name'];
 $file_name = $_FILES["file"]["name"];
