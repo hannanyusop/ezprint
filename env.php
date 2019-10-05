@@ -5,7 +5,7 @@ session_start();
 require_once('vendor/autoload.php');
 
 #for error reporting
-error_reporting(0);
+//error_reporting(0);
 
 #database
 include_once 'config/db_config.php';
