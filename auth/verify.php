@@ -19,14 +19,14 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
         $_SESSION['auth'] = [
             'user_id' => $user['id'],
-            'role' => $user['role_id'],
+            'role' => (int)$user['role_id'],
             'fullname' => $user['fullname'],
         ];
 
         if($user['role_id'] == 3){
             #customer
 
-            print_r('customer');exit();
+            header('Location:customer/dashboard.php');
 
         }elseif($user['role_id'] == 2 && $user['role_id'] == 1){
             #staff & manager
