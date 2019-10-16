@@ -2,8 +2,9 @@
     require_once '../../env.php';
 
 
-    $jobs = $_SESSION['jobs'][1];
-    $jobs['addOn'] = null;
+    $user_id = $_SESSION['auth']['user_id'];
+    $jobs = $_SESSION['jobs'][$user_id];
+    $jobs['addOn'] = [];
 
     $subtotal = $jobs['price'];
 
@@ -14,32 +15,41 @@
 
         if(!is_null($addOn)){
 
-            $jobs['addOn'][$id]['price'] =  $addOn['price'];
+            $jobs['addOn'][$id]['id'] =  (int)$addOn['id'];
+            $jobs['addOn'][$id]['price'] =  (float)$addOn['price'];
             $jobs['addOn'][$id]['name'] =  $addOn['name'];
             $subtotal += $addOn['price'];
         }
     }
 
     #total price
-    $jobs['subtotal'] = $subtotal;
+    $jobs['subtotal'] = (float)$subtotal;
 
     #save to session;
-    $_SESSION['jobs'][1] = $jobs;
+    $_SESSION['jobs'][$user_id] = $jobs;
 
     $credit = 10.00;
-
 ?>
-<link rel="stylesheet" type="text/css" href="../../asset/css/invoice.css">
+
 
 <html lang="en">
+<link rel="stylesheet" type="text/css" href="../../asset/css/invoice.css">
 
-<head>
-    <meta charset='UTF-8'>
-    <title>Editable Invoice</title>
-</head>
-
+<?php include_once('layout/header.php') ?>
+<?php include_once('../permission_customer.php') ?>
 <body>
+<div id="layout">
+    <?php include_once('layout/aside.php'); ?>
+    <div id="main">
+        <div class="header">
+            <h1>Create Printing Job</h1>
+            <h2>Step 4</h2>
+        </div>
 
+        <div class="content">
+            <div>
+                <h6><br></h6>
+                
 <div id="page-wrap">
 
     <h5 id="header">INVOICE</h5>
@@ -135,8 +145,15 @@
         <p>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</p>
     </div>
 
+            </div>
+        </div>
+        <div style="margin-top:15px">
+            <a class="button-h pure-button" href="job-step-3.php">Previous</a>
+            <a href="job-step-confirm.php" class="button-h pure-button" type="submit">Confirm</a>
+        </div>
+    </div>
 </div>
-
+<?php include_once('layout/footer.php'); ?>
 </body>
-
 </html>
+

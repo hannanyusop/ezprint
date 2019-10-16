@@ -1,6 +1,5 @@
+<?php include_once('../permission_customer.php') ?>
 <?php
-
-require_once '../../env.php';
 
 $mpdf = new \Mpdf\Mpdf();
 
@@ -8,7 +7,7 @@ $c = 0.20;
 $bnw = 0.10;
 
 
-$target_dir = "../../uploads/";
+$target_dir = "../../asset/uploads/";
 
 $file_tmp = $_FILES['file']['tmp_name'];
 $file_name = $_FILES["file"]["name"];
@@ -25,20 +24,43 @@ $mpdf->SetImportUse();
 $totalPage = $mpdf->SetSourceFile($file_location);
 
 $job = ['file' => $file_location, 'total_page' => $totalPage];
-$_SESSION['jobs'][1] = $job;
+$_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
 
 ?>
 
-<form action="job-step-3.php" method="post">
-    Total Page : <?= $totalPage; ?><br>
-    Colour:<br>
-    <input type="radio" name="colour" value="1" required> Colour<br>
-    <input type="radio" name="colour" value="0" required> Black & White
-    <br><h2>Total Price : RM<span id="total_price">0.00</span></h2>
+<html lang="en">
+<?php include_once('layout/header.php') ?>
+<body>
+<div id="layout">
+    <?php include_once('layout/aside.php'); ?>
+    <div id="main">
+        <div class="header">
+            <h1>Create Printing Job</h1>
+            <h2>Step 2</h2>
+        </div>
 
-    <a href="job-step-1.php">Previous</a>
-    <button type="submit">Next</button>
-</form>
+        <div class="content">
+            <div>
+                <h6><br></h6>
+            
+                <form action="job-step-3.php" method="post">
+                    Total Page : <?= $totalPage; ?><br>
+                    Colour:<br>
+                    <input type="radio" name="colour" value="1" required> Colour<br>
+                    <input type="radio" name="colour" value="0" required> Black & White
+                    <br><h2>Total Price : RM<span id="total_price">0.00</span></h2>
+
+                    <a href="job-step-1.php" class="button-f pure-button">Previous</a>
+                    <button type="submit" class="button-f pure-button">Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include_once('layout/footer.php'); ?>
+</body>
+</html>
+
 
 
 <script type="text/javascript" src="../../asset/js/jquery.js"></script>

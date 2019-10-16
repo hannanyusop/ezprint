@@ -1,6 +1,10 @@
 <html lang="en">
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php
+    $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id");
+//    var_dump($result);exit();
+?>
 <body>
 <div id="layout">
     <?php include_once('layout/aside.php'); ?>
@@ -12,25 +16,31 @@
 
         <div class="content">
             <div>
-                <h6>Test</h6>
+                <h5>*Please call our customer service at +6010-5960586 for fast respond.</h5>
                 <table class="pure-table">
                     <thead>
                     <tr>
-                        <td>xxx number</td>
+                        <td>Order Number</td>
                         <td>Total Price</td>
                         <td>Status</td>
                         <td>Created At</td>
-                        <td>XXX Date</td>
+                        <td>Pickup Date</td>
+                        <td></td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>xxx number</td>
-                        <td>Total Price</td>
-                        <td>Status</td>
-                        <td>Created At</td>
-                        <td>XXX Date</td>
-                    </tr>
+                    <?php if($result->num_rows > 0){ while($job = $result->fetch_assoc()){ ;?>
+                        <tr>
+                            <td><?= $job['id']; ?></td>
+                            <td><?= displayPrice($job['total_price']); ?></td>
+                            <td><?= getJobStatus($job['status']) ?></td>
+                            <td><?= $job['created_at'] ?></td>
+                            <td><?= $job['pickup_date'] ?></td>
+                            <td><a href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
+                        </tr>
+                    <?php } }else{ ?>
+                        <p>No Add On</p>
+                    <?php } ?>
                     </tbody>
                 </table>
             </div>

@@ -18,7 +18,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         $x = $db->query($q);
 
         $_SESSION['auth'] = [
-            'user_id' => $user['id'],
+            'user_id' => (int)$user['id'],
             'role' => (int)$user['role_id'],
             'fullname' => $user['fullname'],
         ];

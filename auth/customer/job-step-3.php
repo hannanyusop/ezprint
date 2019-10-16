@@ -1,11 +1,12 @@
+<?php include_once('../permission_customer.php') ?>
 <?php
-require_once '../../env.php';
 
 if(isset($_POST['colour'])){
 
+    $user_id = $_SESSION['auth']['user_id'];
 
     $colour = (int)$_POST['colour'];
-    $jobs = $_SESSION['jobs'][1];
+    $jobs = $_SESSION['jobs'][$user_id];
 
     #insert price to session
     $rate = ($colour == 1)? 0.20 : 0.10;
@@ -15,7 +16,7 @@ if(isset($_POST['colour'])){
     $jobs['colour'] = ($colour == 1)? "colour" : "black & white";
 
     #save to session;
-    $_SESSION['jobs'][1] = $jobs;
+    $_SESSION['jobs'][$user_id] = $jobs;
 
     $result = $db->query("SELECT * FROM add_on WHERE is_active=1");
 
@@ -24,26 +25,47 @@ if(isset($_POST['colour'])){
 }
 
 ?>
-<h1>Select Add On</h1>
 
-<form action="job-step-4.php" method="post">
-    <div id="pricelist">
-        <?php if($result->num_rows > 0){ while($add = $result->fetch_assoc()){ ;?>
-            <input type="checkbox" name="add-on[]" value="<?= $add['id'] ?>" data-price="<?= $add['price']; ?>"><?= $add['name']."(".displayPrice($add['price']).")" ?><br>
-        <?php } }else{ ?>
-            <p>No Add On</p>
-        <?php } ?>
+<html lang="en">
+<?php include_once('layout/header.php') ?>
+<body>
+<div id="layout">
+    <?php include_once('layout/aside.php'); ?>
+    <div id="main">
+        <div class="header">
+            <h1>Create Printing Job</h1>
+            <h2>Step 3</h2>
+        </div>
+
+        <div class="content">
+            <div>
+                <h6><br></h6>
+            
+                <form action="job-step-4.php" method="post">
+                    <div id="pricelist">
+                        <?php if($result->num_rows > 0){ while($add = $result->fetch_assoc()){ ;?>
+                            <input type="checkbox" name="add-on[]" value="<?= $add['id'] ?>" data-price="<?= $add['price']; ?>"> <?= $add['name']."(".displayPrice($add['price']).")" ?><br>
+                        <?php } }else{ ?>
+                            <p>No Add On</p>
+                        <?php } ?>
+                    </div>
+
+                    <br>
+                    <h3>
+                        <small>Price : <?= displayPrice($jobs['price']); ?></small><br>
+                        Subtotal : <span id="subtotal"><?= displayPrice($jobs['price']); ?></span>
+                    </h3>
+
+                    <a class="button-h pure-button" href="job-step-2.php">Previous</a>
+                    <button class="button-h pure-button" type="submit">Next</button>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <br>
-    <h3>
-        <small>Price : <?= displayPrice($jobs['price']); ?></small><br>
-        Subtotal : <span id="subtotal"><?= displayPrice($jobs['price']); ?></span>
-    </h3>
-
-    <a href="job-step-2.php">Previous</a>
-    <button type="submit">Next</button>
-</form>
+</div>
+<?php include_once('layout/footer.php'); ?>
+</body>
+</html>
 
 <script type="text/javascript" src="../../asset/js/jquery.js"></script>
 <script>
