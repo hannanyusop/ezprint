@@ -28,7 +28,8 @@ function getTransactionType($type){
 
     $types = [
         1 => 'Top-up',
-        2 => 'Payment'
+        2 => 'Payment',
+        3 => 'Refund'
     ];
 
     return $types[$type];

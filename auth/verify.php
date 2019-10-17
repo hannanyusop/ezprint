@@ -28,9 +28,9 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
             header('Location:customer/dashboard.php');
 
-        }elseif($user['role_id'] == 2 && $user['role_id'] == 1){
+        }elseif($user['role_id'] == 2 || $user['role_id'] == 1){
             #staff & manager
-            print_r('staff & manager');exit();
+            header('Location:staff/dashboard.php');
         }
 
     }
