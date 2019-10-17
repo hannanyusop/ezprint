@@ -12,6 +12,41 @@ function getUser(){
 
 }
 
+function getYear(){
+    $start = 2005;
+    $years = [];
+    do{
+        $years[] = $start; $start++;
+    }while($start <= date('Y'));
+
+    return $years;
+}
+
+function getStrMonth($int = null){
+
+    $months = [
+        1 => 'January',
+        2 => 'February',
+        3 => 'March',
+        4 => 'April',
+        5 => 'May',
+        6 => 'June',
+        7 => 'July',
+        8 => 'August',
+        9 => 'September',
+        10 => 'October',
+        11 => 'November',
+        12 => 'December'
+    ];
+
+    if(is_null($int)){
+        return $months;
+    }
+
+    return $months[$int];
+
+}
+
 function getJobStatus($status){
 
     $statuses = [
