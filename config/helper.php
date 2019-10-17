@@ -24,6 +24,16 @@ function getJobStatus($status){
     return $statuses[$status];
 }
 
+function getTransactionType($type){
+
+    $types = [
+        1 => 'Top-up',
+        2 => 'Payment'
+    ];
+
+    return $types[$type];
+}
+
 #for testing
 function dd($data){
     var_dump($data);exit();

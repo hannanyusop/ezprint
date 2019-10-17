@@ -13,4 +13,8 @@
     }
 
     $user_id = $_SESSION['auth']['user_id'];
+
+    $result = $db->query("SELECT *,accounts.id as account_id FROM users  LEFT JOIN  accounts ON users.id = accounts.user_id WHERE users.id=$user_id");
+    $user = $result->fetch_assoc();
+
 ?>

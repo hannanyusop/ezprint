@@ -39,7 +39,7 @@ if(isset($_POST['colour'])){
 
         <div class="content">
             <div>
-                <h6><br></h6>
+                <h4 style="color: #4CAF50">ACCOUNT BALANCE : <?= displayPrice($user['credit_balance']) ?></h4>
             
                 <form action="job-step-4.php" method="post">
                     <div id="pricelist">
@@ -53,7 +53,7 @@ if(isset($_POST['colour'])){
                     <br>
                     <h3>
                         <small>Price : <?= displayPrice($jobs['price']); ?></small><br>
-                        Subtotal : <span id="subtotal"><?= displayPrice($jobs['price']); ?></span>
+                        Subtotal : <span id="subtotal" style="color: #43A047"><?= displayPrice($jobs['price']); ?></span>
                     </h3>
 
                     <a class="button-h pure-button" href="job-step-2.php">Previous</a>

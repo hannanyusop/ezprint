@@ -11,7 +11,7 @@
     <div id="main">
         <div class="header">
             <h1>Dashboard</h1>
-            <h2>A subtitle for your page goes here</h2>
+            <h2>ACCOUNT BALANCE: <?= displayPrice($user['credit_balance']) ?></h2>
         </div>
 
         <div class="content">
@@ -39,7 +39,9 @@
                             <td><a href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
                         </tr>
                     <?php } }else{ ?>
-                        <p>No Add On</p>
+                        <tr>
+                            <td colspan="6">No data</td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>

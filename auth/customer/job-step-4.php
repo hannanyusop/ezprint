@@ -1,5 +1,5 @@
+<?php include_once('../permission_customer.php') ?>
 <?php
-    require_once '../../env.php';
 
 
     $user_id = $_SESSION['auth']['user_id'];
@@ -25,10 +25,14 @@
     #total price
     $jobs['subtotal'] = (float)$subtotal;
 
+    if($jobs['subtotal'] > $user['credit_balance']){
+        echo "<script>alert('Sorry! Credit balance not enough!');window.location='job-step-3.php'</script>";
+    }
+
     #save to session;
     $_SESSION['jobs'][$user_id] = $jobs;
 
-    $credit = 10.00;
+    $credit = (float)$user['credit_balance'];
 ?>
 
 
