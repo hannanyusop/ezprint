@@ -20,7 +20,8 @@
                 echo "<script>alert('Please insert valid amount!');window.location='customer-topup.php?id=".$_GET['id']."'</script>";
             }
 
-            $amount = $_POST['amount'];
+            $amount = (float)$_POST['amount'];
+
             $credit_balance = $customer['credit_balance']+$amount;
             $credit_total = $customer['credit_total']+$amount;
 
