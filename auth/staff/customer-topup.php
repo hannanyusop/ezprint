@@ -18,6 +18,7 @@
 
             if($_POST['amount'] <= 0){
                 echo "<script>alert('Please insert valid amount!');window.location='customer-topup.php?id=".$_GET['id']."'</script>";
+                exit();
             }
 
             $amount = (float)$_POST['amount'];

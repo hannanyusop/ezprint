@@ -30,14 +30,14 @@
                     </thead>
                     <tbody>
                     <?php if($result->num_rows > 0){ while($transaction = $result->fetch_assoc()){ ;?>
-                        <tr>
+                        <tr style="color: <?=($transaction['type'] == 2)? '#E71800' : '#0078e7' ?>">
                             <td><?= getTransactionType($transaction['type']); ?></td>
                             <td>
                                 <?php if($transaction['type'] == 2){ ?>
                                     <a href="job-view.php?id=<?= $transaction['job_id']; ?>">#0<?= $transaction['job_id'] ?></a>
                                 <?php } ?>
                             </td>
-                            <td><?= displayPrice($transaction['amount']) ?></td>
+                            <td><?= ($transaction['type'] == 2)? "-".displayPrice($transaction['amount']) : "+".displayPrice($transaction['amount']);  ?></td>
                             <td><?= displayPrice($transaction['current_balance']) ?></td>
                             <td><?= $transaction['created_at'] ?></td>
                             <td>
