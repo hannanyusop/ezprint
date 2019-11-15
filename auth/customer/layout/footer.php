@@ -1,1 +1,1 @@
-<script src="../../asset/js/ui.js"></script>
+<footer role="contentinfo">Easy Admin Style by Melissa Cabral</footer>

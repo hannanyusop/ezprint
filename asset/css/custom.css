@@ -271,7 +271,7 @@ tr:not(:first-child):hover {
 }
 td {
     font-size: 13px;
-    line-height: 30px;
+    line-height: 40px;
     font-weight: 500;
     padding: 0 10px;
 }

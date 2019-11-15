@@ -1,47 +1,44 @@
+<html lang="en">
+<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/aside.php') ?>
+
 <?php
+    if(isset($_POST['colour'])){
 
-if(isset($_POST['colour'])){
+        $user_id = $_SESSION['auth']['user_id'];
 
-    $user_id = $_SESSION['auth']['user_id'];
+        $colour = (int)$_POST['colour'];
+        $jobs = $_SESSION['jobs'][$user_id];
 
-    $colour = (int)$_POST['colour'];
-    $jobs = $_SESSION['jobs'][$user_id];
+        #insert price to session
+        $rate = ($colour == 1)? 0.20 : 0.10;
+        $price = $jobs['total_page']*$rate;
 
-    #insert price to session
-    $rate = ($colour == 1)? 0.20 : 0.10;
-    $price = $jobs['total_page']*$rate;
+        $jobs['price'] = $price;
+        $jobs['colour'] = ($colour == 1)? "colour" : "black & white";
 
-    $jobs['price'] = $price;
-    $jobs['colour'] = ($colour == 1)? "colour" : "black & white";
+        #save to session;
+        $_SESSION['jobs'][$user_id] = $jobs;
 
-    #save to session;
-    $_SESSION['jobs'][$user_id] = $jobs;
+        $result = $db->query("SELECT * FROM add_on WHERE is_active=1");
 
-    $result = $db->query("SELECT * FROM add_on WHERE is_active=1");
-
-}else{
-    echo "<script>alert('Invalid action');window.location='job-step-1.php'</script>";
-}
+    }else{
+        echo "<script>alert('Invalid action');window.location='job-step-1.php'</script>";
+    }
 
 ?>
 
-<html lang="en">
-<?php include_once('layout/header.php') ?>
-<body>
-<div id="layout">
-    <?php include_once('layout/aside.php'); ?>
-    <div id="main">
-        <div class="header">
-            <h1>Create Printing Job</h1>
-            <h2>Step 3</h2>
-        </div>
 
-        <div class="content">
-            <div>
-                <h4 style="color: #4CAF50">ACCOUNT BALANCE : <?= displayPrice($user['credit_balance']) ?></h4>
-            
-                <form action="job-step-4.php" method="post">
+<main role="main">
+    <div class="offset-3">
+        <section class="panel">
+            <h2>Add Job Step 3</h2>
+            <form action="job-step-4.php" method="post" enctype="multipart/form-data">
+                <div class="twothirds">
+
+
+                    <h4 style="color: #4CAF50">ACCOUNT BALANCE : <?= displayPrice($user['credit_balance']) ?></h4>
                     <div id="pricelist">
                         <?php if($result->num_rows > 0){ while($add = $result->fetch_assoc()){ ;?>
                             <input type="checkbox" name="add-on[]" value="<?= $add['id'] ?>" data-price="<?= $add['price']; ?>"> <?= $add['name']."(".displayPrice($add['price']).")" ?><br>
@@ -56,17 +53,18 @@ if(isset($_POST['colour'])){
                         Subtotal : <span id="subtotal" style="color: #43A047"><?= displayPrice($jobs['price']); ?></span>
                     </h3>
 
-                    <a class="button-h pure-button" href="job-step-2.php">Previous</a>
-                    <button class="button-h pure-button" type="submit">Next</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<?php include_once('layout/footer.php'); ?>
-</body>
-</html>
+                    <div>
+                        <a href="job-step-2.php" class="btn btn-md btn-warning">Previous</a>
+                        <input class="btn btn-md btn-success" name="submit" type="submit" value="Next" />
+                    </div>
 
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+<?php include_once('layout/footer.php') ?>
 <script type="text/javascript" src="../../asset/js/jquery.js"></script>
 <script>
     function  cal() {
@@ -89,3 +87,5 @@ if(isset($_POST['colour'])){
     cal();
 
 </script>
+
+</html>

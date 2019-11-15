@@ -1,15 +1,9 @@
-<a href="#menu" id="menuLink" class="menu-link">
-    <span></span>
-</a>
-<div id="menu">
-    <div class="pure-menu">
-        <a class="pure-menu-heading" href="#">ezPrint</a>
-
-        <ul class="pure-menu-list">
-            <li class="pure-menu-item"><a href="dashboard.php" class="pure-menu-link">Dashboard</a></li>
-            <li class="pure-menu-item"><a href="job-step-1.php" class="pure-menu-link">Create Job</a></li>
-            <li class="pure-menu-item"><a href="account.php" class="pure-menu-link">Account</a></li>
-            <li class="pure-menu-item"><a href="../logout.php" class="pure-menu-link">Logout</a></li>
-        </ul>
-    </div>
-</div>
+<nav role="navigation">
+    <ul class="main">
+        <li class="dashboard"><a href="dashboard.php">Dashboard</a></li>
+        <li class="write"><a href="job-step-1.php">Create Job</a></li>
+        <li class="edit"><a href="job-list.php">Job List</a></li>
+        <li class="comments"><a href="account.php">Account</a></li>
+        <li class="users"><a href="../logout.php">Logout</a></li>
+    </ul>
+</nav>
