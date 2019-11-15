@@ -21,7 +21,8 @@ if(isset($_POST['submit'])){
 
     $role_id = (isset($_POST['manager']))? 1 : 2;
 
-    if (!$db->query("INSERT INTO users (role_id, email, password, fullname, is_active, is_confirm, created_at) VALUES ($role_id, '$_POST[email]', 'secret', '$fullname', 1, 1, CURRENT_TIMESTAMP)")) {
+    $default_password = password_hash("secret", PASSWORD_BCRYPT);
+    if (!$db->query("INSERT INTO users (role_id, email, password, fullname, is_active, is_confirm, created_at) VALUES ($role_id, '$_POST[email]', '$default_password', '$fullname', 1, 1, CURRENT_TIMESTAMP)")) {
         echo "Error: Inserting user data." . $db->error; exit();
     }else{
 
