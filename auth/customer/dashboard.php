@@ -3,7 +3,7 @@
 <?php include_once('../permission_customer.php') ?>
 <?php include_once('layout/aside.php') ?>
 <?php
-$result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id");
+$result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY status ASC");
 //    var_dump($result);exit();
 ?>
 <main role="main">
@@ -33,7 +33,12 @@ $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id");
                     <td><?= getJobStatus($job['status']) ?></td>
                     <td><?= $job['created_at'] ?></td>
                     <td><?= $job['pickup_date'] ?></td>
-                    <td><a href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
+                    <td>
+                        <a href="job-view.php?id=<?= $job['id']; ?>">View</a>
+                        <?php if($job['status'] == 1){ ?>
+                            <a class="text-danger"  onclick="return confirm('Are you sure want to delete this job?')" href="job-delete.php?id=<?= $job['id'] ?>">Delete</a>
+                        <?php } ?>
+                    </td>
                 </tr>
             <?php } }else{ ?>
                 <tr>

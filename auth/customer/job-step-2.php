@@ -5,8 +5,8 @@
 
     $mpdf = new \Mpdf\Mpdf();
 
-    $c = 0.20;
-    $bnw = 0.10;
+    $c = getOption('price_colour', 0.20);
+    $bnw = getOption('price_black_and_white', 0.10);
 
 
     $target_dir = "../../asset/uploads/";
@@ -42,8 +42,8 @@
 
                     Total Page : <?= $totalPage; ?><br>
                     Colour:<br>
-                    <input type="radio" name="colour" value="1" required> Colour<br>
-                    <input type="radio" name="colour" value="0" required> Black & White
+                    <input type="radio" name="colour" value="1" required> Colour (<?= displayPrice($c).'/page' ?>)<br>
+                    <input type="radio" name="colour" value="0" required> Black & White (<?= displayPrice($bnw).'/page' ?>)
                     <br><h2>Total Price : RM<span id="total_price">0.00</span></h2>
 
                     <div>

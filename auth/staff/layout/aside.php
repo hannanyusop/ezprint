@@ -7,6 +7,7 @@
         <?php if($_SESSION['auth']['role'] == 1){ ?>
         <li class="users"><a href="sale-report.php">Sale Report</a></li>
         <li class="users"><a href="staff-list.php">Manage Staff</a></li>
+        <li class="users"><a href="option-list.php">Manage Add On & Pricing</a></li>
         <?php } ?>
         <li class="logout"><a href="../logout.php">Logout</a></li>
     </ul>

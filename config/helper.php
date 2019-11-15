@@ -1,5 +1,7 @@
 <?php
 
+include_once 'db_config.php';
+
 function displayPrice($price){
 
     return "RM ".number_format($price, 2, '.', '');
@@ -7,7 +9,7 @@ function displayPrice($price){
 
 function getUser(){
 
-    $result = $db->query("SELECT * FROM users WHERE id=$_SESSION[user_id]");
+    $result = $GLOBALS['db']->query("SELECT * FROM users WHERE id=$_SESSION[user_id]");
     return $result->fetch_assoc();
 
 }
@@ -116,4 +118,30 @@ function getBackendRole($role_id = null){
     }
 
     return $roles[$role_id];
+}
+
+
+function getAddOnStatus($status = null){
+
+
+    $statuses = [
+        1 => 'ACTIVE',
+        0 => 'DISABLED',
+    ];
+
+    return (is_null($status))? $statuses : $statuses[$status];
+
+}
+
+function getOption($name, $default = ''){
+
+    $option_q = $GLOBALS['db']->query("SELECT * FROM options WHERE name='$name'");
+    $option = $option_q->fetch_assoc();
+
+    if(!$option){
+        return $default;
+    }
+
+    return $option['value'];
+
 }
