@@ -56,7 +56,7 @@
                         <td class="font-weight-bold text-success"><?= displayPrice($customer['credit_balance']); ?></td>
                         <td><?= $customer['created_at'] ?></td>
                         <td>
-                            <a href="customer-view.php?id=<?= $customer['customer_id']; ?>" class="font-weight-bold text-info">View</a> |
+                            <a href="customer-edit.php?id=<?= $customer['customer_id']; ?>" class="font-weight-bold text-info">Edit</a> |
                             <a href="customer-topup.php?id=<?= $customer['customer_id']; ?>" class="font-weight-bold text-success">Topup</a>
                         </td>
                     </tr>

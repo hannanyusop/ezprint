@@ -88,3 +88,32 @@ function getFileExt($file){
 function getFileSize($file){
     return (file_exists($file)) ? filesize($file)." KB" : "File Not Found!";
 }
+
+function getRole($role_id = null){
+
+    $roles = [
+        1 => 'MANAGER',
+        2 => 'STAFF',
+        3 => 'CUSTOMER'
+    ];
+
+    if(is_null($role_id)){
+        return $roles;
+    }
+
+    return $roles[$role_id];
+}
+
+function getBackendRole($role_id = null){
+
+    $roles = [
+        1 => 'MANAGER',
+        2 => 'STAFF',
+    ];
+
+    if(is_null($role_id)){
+        return $roles;
+    }
+
+    return $roles[$role_id];
+}

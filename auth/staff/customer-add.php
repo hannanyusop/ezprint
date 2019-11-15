@@ -48,10 +48,10 @@ if(isset($_POST['submit'])){
             <form method="post" action="customer-add.php">
                 <div class="twothirds">
                     <label for="email">E-mail:</label>
-                    <input type="text" name="email" id="email" placeholder="Email" />
+                    <input type="email" name="email" id="email" placeholder="Email" required>
 
                     <label for="full_name">Full Name:</label>
-                    <input type="text" name="full_name" id="full_name" placeholder="Full Name" />
+                    <input type="text" name="full_name" id="full_name" placeholder="Full Name" required>
 
                     <label for="password">Password:</label>
                     <input type="text" name="password" id="password" value="secret" disabled/>
@@ -66,7 +66,8 @@ if(isset($_POST['submit'])){
                     </div>
 
                     <div>
-                        <input class="btn btn-lg btn-success" name="submit" type="submit" value="Submit" />
+                        <input class="btn btn-md btn-success" name="submit" type="submit" value="Submit" />
+                        <a class="btn btn-md btn-warning" href="customer-list.php">Back</a>
                     </div>
 
                 </div>

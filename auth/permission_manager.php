@@ -1,4 +1,6 @@
 <?php
+    require_once '../../env.php';
+
     if(isset($_SESSION['auth'])){
 
         #manager only
@@ -10,4 +12,9 @@
     }else{
         echo "<script>alert('Session ended! Please re-login!');window.location='login.php';</script>";
     }
+
+    $user_id = $_SESSION['auth']['user_id'];
+
+    $result = $db->query("SELECT * FROM users WHERE id=$user_id");
+    $user = $result->fetch_assoc();
 ?>
