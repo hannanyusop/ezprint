@@ -47,7 +47,7 @@ function getStrMonth($int = null){
 
 }
 
-function getJobStatus($status){
+function getJobStatus($status = null){
 
     $statuses = [
         1 => 'Pending',
@@ -56,7 +56,12 @@ function getJobStatus($status){
         4 => 'Rejected',
     ];
 
-    return $statuses[$status];
+    if(is_null($status)){
+        return $statuses;
+    }else{
+        return $statuses[$status];
+    }
+
 }
 
 function getTransactionType($type){
@@ -73,4 +78,13 @@ function getTransactionType($type){
 #for testing
 function dd($data){
     var_dump($data);exit();
+}
+
+function getFileExt($file){
+
+    return (file_exists($file)) ? strtoupper(pathinfo($file, PATHINFO_EXTENSION)) : "File Not Found!";
+}
+
+function getFileSize($file){
+    return (file_exists($file)) ? filesize($file)." KB" : "File Not Found!";
 }

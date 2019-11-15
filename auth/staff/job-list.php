@@ -1,54 +1,74 @@
 <html lang="en">
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_staff.php') ?>
+<?php include_once('layout/aside.php') ?>
 <?php
-    $result = $db->query("SELECT * FROM jobs WHERE staff_id=$user_id ORDER BY status ASC");
-?>
-<body>
-<div id="layout">
-    <?php include_once('layout/aside.php'); ?>
-    <div id="main">
-        <div class="header">
-            <h1>My Task</h1>
-            <h2>TOTAL TASK: <?= '1' ?></h2>
-        </div>
+    if(isset($_GET['status']) && isset($_GET['name'])){
 
-        <div class="content">
-            <div>
-                <h5>*Note:</h5>
-                <table class="pure-table">
-                    <thead>
-                    <tr>
-                        <td>Order Number</td>
-                        <td>Total Price</td>
-                        <td>Status</td>
-                        <td>Created At</td>
-                        <td>Pickup Date</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php if($result->num_rows > 0){ while($job = $result->fetch_assoc()){ ;?>
-                        <tr>
-                            <td><?= $job['id']; ?></td>
-                            <td><?= displayPrice($job['total_price']); ?></td>
-                            <td><?= getJobStatus($job['status']) ?></td>
-                            <td><?= $job['created_at'] ?></td>
-                            <td><?= $job['pickup_date'] ?></td>
-                            <td><a href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
-                        </tr>
-                    <?php } }else{ ?>
-                        <tr>
-                            <td colspan="6">No data</td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-                </table>
+        if($_GET['status'] != ''){
+            $condition = "AND status= $_GET[status] AND fullname LIKE '%$_GET[name]%'";
+        }else{
+            $condition = "AND fullname LIKE '%$_GET[name]%'";
+        }
+
+    }else{
+        $condition = "";
+    }
+    $result = $db->query("SELECT * FROM jobs as j LEFT JOIN users as u ON j.customer_id=u.id  WHERE staff_id=$user_id"." $condition ORDER BY status ASC");
+?>
+<main role="main">
+
+    <section class="panel important">
+        <h2>My Jobs</h2>
+        <form method="get">
+            <div class="onethird">
+                <input type="text" name="name" value="<?= (isset($_GET['name']))? $_GET['name'] : '' ?>" placeholder="Customer Name" />
             </div>
+            <div class="onethird">
+                <select name="status">
+                    <option value="">All Status</option>
+                    <?php foreach (getJobStatus() as $key => $status){ ?>
+                        <option value="<?= $key ?>" <?= (isset($_GET['status']))? ($_GET['status'] == $key)? 'selected' : '' : '' ?>><?= $status; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="onethird mb-2">
+                <button type="submit" class="btn btn-md btn-info">Search</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="panel important">
+        <div class="content">
+            <table>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Name</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Pickup Date</th>
+                    <th></th>
+                </tr>
+                <?php if($result->num_rows > 0){ while($job = $result->fetch_assoc()){ ;?>
+                    <tr>
+                        <td><?= $job['id']; ?></td>
+                        <td><?= $job['fullname']; ?></td>
+                        <td><?= displayPrice($job['total_price']); ?></td>
+                        <td><?= getJobStatus($job['status']) ?></td>
+                        <td><?= $job['created_at'] ?></td>
+                        <td><?= $job['pickup_date'] ?></td>
+                        <td><a class="text-info font-weight-bold" href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
+                    </tr>
+                <?php } }else{ ?>
+                    <tr>
+                        <td class="text-center" colspan="6">No data</td>
+                    </tr>
+                <?php } ?>
+            </table>
         </div>
-    </div>
-</div>
-<?php include_once('layout/footer.php'); ?>
-</body>
+    </section>
+</main>
+
+<?php include_once('layout/footer.php') ?>
 </html>

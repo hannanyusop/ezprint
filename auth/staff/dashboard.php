@@ -1,54 +1,69 @@
 <html lang="en">
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_staff.php') ?>
-<?php
-    $result = $db->query("SELECT * FROM jobs WHERE status=1");
-//    var_dump($result);exit();
-?>
-<body>
-<div id="layout">
-    <?php include_once('layout/aside.php'); ?>
-    <div id="main">
-        <div class="header">
-            <h1>Dashboard</h1>
-            <h2>Hye, <?= $user['fullname'] ?></h2>
-        </div>
+<?php include_once('layout/aside.php') ?>
 
-        <div class="content">
-            <div>
-                <h3>Pending job</h3>
-                <table class="pure-table">
-                    <thead>
+<?php
+    $pending = $db->query("SELECT * FROM jobs WHERE status=1");
+    $in_progress = $db->query("SELECT * FROM jobs WHERE status=2");
+?>
+
+    <main role="main">
+        <section class="panel ">
+            <h2>In Progress Job</h2>
+            <table>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Pickup Date</th>
+                    <th></th>
+                </tr>
+                <?php if($in_progress->num_rows > 0){ while($job = $in_progress->fetch_assoc()){ ;?>
                     <tr>
-                        <td>Order Number</td>
-                        <td>Total Price</td>
-                        <td>Status</td>
-                        <td>Created At</td>
-                        <td>Pickup Date</td>
-                        <td></td>
+                        <td><?= $job['id']; ?></td>
+                        <td><?= displayPrice($job['total_price']); ?></td>
+                        <td><?= getJobStatus($job['status']) ?></td>
+                        <td><?= $job['created_at'] ?></td>
+                        <td><?= $job['pickup_date'] ?></td>
+                        <td><a href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?php if($result->num_rows > 0){ while($job = $result->fetch_assoc()){ ;?>
-                        <tr>
-                            <td><?= $job['id']; ?></td>
-                            <td><?= displayPrice($job['total_price']); ?></td>
-                            <td><?= getJobStatus($job['status']) ?></td>
-                            <td><?= $job['created_at'] ?></td>
-                            <td><?= $job['pickup_date'] ?></td>
-                            <td><a href="job-view.php?id=<?= $job['id']; ?>">View</a> </td>
-                        </tr>
-                    <?php } }else{ ?>
-                        <tr>
-                            <td colspan="6">No data</td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<?php include_once('layout/footer.php'); ?>
-</body>
+                <?php } }else{ ?>
+                    <tr>
+                        <td class="text-center" colspan="6">No data</td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </section>
+        <section class="panel ">
+            <h2>Pending Job</h2>
+            <table>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Pickup Date</th>
+                    <th></th>
+                </tr>
+                <?php if($pending->num_rows > 0){ while($pending_job = $pending->fetch_assoc()){ ;?>
+                    <tr>
+                        <td><?= $pending_job['id']; ?></td>
+                        <td><?= displayPrice($pending_job['total_price']); ?></td>
+                        <td><?= getJobStatus($pending_job['status']) ?></td>
+                        <td><?= $pending_job['created_at'] ?></td>
+                        <td><?= $pending_job['pickup_date'] ?></td>
+                        <td><a href="job-view.php?id=<?= $pending_job['id']; ?>">View</a> </td>
+                    </tr>
+                <?php } }else{ ?>
+                    <tr>
+                        <td class="text-center" colspan="6">No data</td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </section>
+    </main>
+
+<?php include_once('layout/footer.php') ?>
 </html>

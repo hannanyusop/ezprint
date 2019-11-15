@@ -1,6 +1,7 @@
 <html lang="en">
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_staff.php') ?>
+<?php include_once('layout/aside.php') ?>
 <?php
     if(isset($_GET['id'])){
         $result = $db->query("SELECT * FROM jobs WHERE id=$_GET[id]");
@@ -17,22 +18,16 @@
         echo "<script>alert('Invalid action!');window.location='dashboard.php'</script>";
     }
 ?>
-<body>
-<div id="layout">
-    <?php include_once('layout/aside.php'); ?>
-    <div id="main">
-        <div class="header">
-            <h1>View Job</h1>
-            <h2>A subtitle for your page goes here</h2>
-        </div>
 
-        <div class="content">
-            <div>
-                <h5>*Please call our customer service at +6010-5960586 for fast respond.</h5>
-            </div>
+<main role="main">
+    <section class="panel important">
+        <h2>View Job</h2>
+    </section>
 
-            <span>Order Number: #<?= $job['id']; ?></span><br>
-            <span>Document: <a target="_blank" href="<?= $job['file']; ?>"> View<a/></span><br>
+    <section class="panel">
+        <h2>Order Number: #<?= $job['id']; ?></h2>
+        <div class="twothirds">
+
             <span>Status: <?= getJobStatus($job['status']); ?></span><br>
             <span>Total Paid: <?= displayPrice($job['total_price']); ?></span><br>
 
@@ -44,20 +39,31 @@
                     <p>No Add On</p>
                 <?php } ?>
             </ul>
+        </div>
+        <div class="onethirds">
+            <p class="text-center">
+                <a class="pdf-thumbnail" href="<?= $job['file']; ?>"><i class="fa fa-5x fa-file-pdf-o"></i></a><br>
+                <small class="tips success">Click icon to view or download file</small><br>
+            </p>
 
-            <div>
+            <p>
+                <span class="file-detail"><span class="file-item">Document: </span> <?= basename($job['file']) ?></span><br>
+                <span class="file-detail"><span class="file-item">Size: </span>  <?= getFileSize($job['file']) ?> </span><br>
+                <span class="file-detail"><span class="file-item">File Type: </span>  <?= getFileExt($job['file']) ?></span><br>
+            </p>
+            <div class="float-bottom">
                 <?php if($job['status'] == 1){ ?>
-                    <a href="job-accept.php?id=<?= $job['id'] ?>" class="button-h pure-button" style="background-color: #4CAF50;color: #ffff">Accept</a>
-                    <a href="job-reject.php?id=<?= $job['id'] ?>" class="button-h pure-button" style="background-color: #DC143C; color: #ffff" onclick="return confirm('Are you sure?')">Reject</a>
+                    <a href="job-accept.php?id=<?= $job['id'] ?>" class="btn btn-md btn-success">Accept</a>
+                    <a href="job-reject.php?id=<?= $job['id'] ?>" class="btn btn-md btn-danger" onclick="return confirm('Are you sure?')">Reject</a>
                 <?php } ?>
 
                 <?php if($job['status'] == 2 && $job['staff_id'] == $user_id){ ?>
-                    <a href="job-complete.php?id=<?= $job['id'] ?>" class="button-h pure-button" style="background-color: #0078e7; color: #ffff;width: 100%;height: 40px;margin: 2px" onclick="return confirm('Are you sure?')">Mark As Complete</a>
+                    <a href="job-complete.php?id=<?= $job['id'] ?>" class="btn btn-md btn-info" onclick="return confirm('Are you sure?')">Mark As Complete</a>
                 <?php } ?>
             </div>
         </div>
-    </div>
-</div>
-<?php include_once('layout/footer.php'); ?>
-</body>
+    </section>
+</main>
+
+<?php include_once('layout/footer.php') ?>
 </html>

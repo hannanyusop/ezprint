@@ -1,90 +1,79 @@
 <html lang="en">
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_staff.php') ?>
+<?php include_once('layout/aside.php') ?>
 <?php
-    $result = $db->query("SELECT * FROM jobs WHERE status=1");
+$result = $db->query("SELECT * FROM jobs WHERE status=1");
 
-    if(isset($_POST['submit'])){
+if(isset($_POST['submit'])){
 
-        #check if email is unique
-        if(isset($_POST['email'])){
+    #check if email is unique
+    if(isset($_POST['email'])){
 
-            $user_q = $db->query("SELECT * FROM users WHERE email='$_POST[email]'");
-            $job = $user_q->fetch_assoc();
+        $user_q = $db->query("SELECT * FROM users WHERE email='$_POST[email]'");
+        $job = $user_q->fetch_assoc();
 
 
-            if($job){
-                echo "<script>alert('Email already exist!');window.location='customer-add.php'</script>";
-            }
+        if($job){
+            echo "<script>alert('Email already exist!');window.location='customer-add.php'</script>";
         }
-
-        $fullname = strtoupper($_POST['full_name']);
-
-        if (!$db->query("INSERT INTO users (role_id, email, password, fullname, is_active, is_confirm, created_at) VALUES (3, '$_POST[email]', 'secret', '$fullname', 1, 1, CURRENT_TIMESTAMP)")) {
-            echo "Error: Inserting user data." . $db->error; exit();
-        }else{
-
-            #add customer account
-
-            $last_user_id = (int)$db->insert_id;
-            if(!$db->query("INSERT INTO accounts (user_id, credit_balance, credit_total, address) VALUES ($last_user_id, 0.00, 0.00, '')")){
-
-                $db->query("DELETE FROM users WHERE id=$last_user_id");
-                #delete prev customer
-                echo "Error: Inserting user account." . $db->error; exit();
-            }
-            echo "<script>alert('Customer Created!');</script>";
-        }
-
     }
+
+    $fullname = strtoupper($_POST['full_name']);
+
+    if (!$db->query("INSERT INTO users (role_id, email, password, fullname, is_active, is_confirm, created_at) VALUES (3, '$_POST[email]', 'secret', '$fullname', 1, 1, CURRENT_TIMESTAMP)")) {
+        echo "Error: Inserting user data." . $db->error; exit();
+    }else{
+
+        #add customer account
+
+        $last_user_id = (int)$db->insert_id;
+        if(!$db->query("INSERT INTO accounts (user_id, credit_balance, credit_total, address) VALUES ($last_user_id, 0.00, 0.00, '')")){
+
+            $db->query("DELETE FROM users WHERE id=$last_user_id");
+            #delete prev customer
+            echo "Error: Inserting user account." . $db->error; exit();
+        }
+        echo "<script>alert('Customer Created!');</script>";
+    }
+
+}
 //    var_dump($result);exit();
 ?>
-<body>
-<div id="layout">
-    <?php include_once('layout/aside.php'); ?>
-    <div id="main">
-        <div class="header">
-            <h1>Add Customer</h1>
-        </div>
 
+<main role="main">
+    <div class="offset-3">
+        <section class="panel">
+            <h2>Add customer</h2>
+            <form method="post" action="customer-add.php">
+                <div class="twothirds">
+                    <label for="email">E-mail:</label>
+                    <input type="text" name="email" id="email" placeholder="Email" />
 
-        <div class="content">
-            <div>
-                <h5>*Note:</h5>
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" name="full_name" id="full_name" placeholder="Full Name" />
 
-                <form class="pure-form pure-form-aligned" method="post">
-                    <fieldset>
-                        <div class="pure-control-group">
-                            <label for="name">E-mail</label>
-                            <input id="email" name="email" type="text" placeholder="E-mail" required>
-                        </div>
+                    <label for="password">Password:</label>
+                    <input type="text" name="password" id="password" value="secret" disabled/>
 
-                        <div class="pure-control-group">
-                            <label for="password">Password</label>
-                            <input id="password" type="text" placeholder="Password" readonly value="secret" required>
-                        </div>
+                    <div>
+                        <label for="checkbox">
+                            <input type="checkbox" name="activate_account" id="checkbox" /> Activate Account
+                        </label>
+                        <label for="checkbox">
+                            <input type="checkbox" name="invite_email" id="checkbox" /> Send invitation via email
+                        </label>
+                    </div>
 
-                        <div class="pure-control-group">
-                            <label for="full_name">Full Name</label>
-                            <input id="full_name" name="full_name" type="text" placeholder="Full Name" required>
-                        </div>
+                    <div>
+                        <input class="btn btn-lg btn-success" name="submit" type="submit" value="Submit" />
+                    </div>
 
-                        <div class="pure-control-group">
-                            <label for="account_balance">Account Balance</label>
-                            <input id="account_balance" type="text" value="RM 0.00" readonly>
-                        </div>
-
-
-                        <div class="pure-controls">
-
-                            <button type="submit" name="submit" class="pure-button pure-button-primary">Submit</button>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
+                </div>
+            </form>
+        </section>
     </div>
-</div>
-<?php include_once('layout/footer.php'); ?>
-</body>
+</main>
+
+<?php include_once('layout/footer.php') ?>
 </html>
