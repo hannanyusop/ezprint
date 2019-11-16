@@ -8,14 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <div class="login-page">
-    <div class="form">>
-        <form class="login-form" action="verify.php" method="post">
-            <p>Login</p>
-            <input type="text" name="email" placeholder="email" required>
-            <input type="password" name="password" placeholder="password" required>
-            <button>login</button>
-            <p class="message">Not registered? <a href="register.php">Create an account</a></p>
-            <p class="message">Password missing? <a href="forgot-password-request.php">Recover Now</a></p>
+    <div class="form">
+        <form class="register-form" action="verify-signup.php" method="post">
+            <p>Create New Account</p>
+            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address"/>
+            <button type="submit" name="register">Create Account</button>
+            <p class="message">Already registered? <a href="login.php">Sign In</a></p>
         </form>
     </div>
 </div>

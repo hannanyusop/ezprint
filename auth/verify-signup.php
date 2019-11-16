@@ -12,7 +12,7 @@ require_once '../env.php';
 
 
             if($job){
-                echo "<script>alert('Email already exist!');window.location='customer-add.php'</script>";
+                echo "<script>alert('Email already exist!');window.location='register.php'</script>";
             }
         }
 
