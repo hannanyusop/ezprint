@@ -61,21 +61,22 @@ header[role=banner] .utilities li a {
     content: "\f007";
 }
 nav[role=navigation] {
-    background: #515151;
-    color: #ddd;
+    background: #202020;
+    color: #ffffff;
 }
 nav[role=navigation] li {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     font-size: 1.2em;
 }
 nav[role=navigation] li a {
-    color: #ddd;
+    color: #ffffff;
     text-decoration: none;
     display: block;
     padding: 0.7em;
 }
 nav[role=navigation] li a:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #39c36d;
+    color: #ffffff;
 }
 nav[role=navigation] li a:before {
     content: "\f248";
@@ -103,8 +104,8 @@ nav[role=navigation] .users a:before {
     background-color: rgba(255, 255, 255, 0.1);
 }
 footer[role=contentinfo] {
-    background: #2fa156;
-    color: #ddd;
+    background: #1c5e2f;
+    color: #ffffff;
     font-size: 0.8em;
     text-align: center;
     padding: 0.2em;

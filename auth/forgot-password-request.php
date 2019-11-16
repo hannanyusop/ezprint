@@ -10,7 +10,7 @@
 <div class="login-page">
     <div class="form">
         <form class="login-form" method="post">
-            <img src="../asset/image/logo.png" height="85">
+            <img src="../asset/image/logo.png" class="login-logo">
             <p>Reset Password</p>
             <input type="email" name="email" placeholder="email" required>
             <button type="submit" name="forgot">Send Code To Email</button>

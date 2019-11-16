@@ -10,9 +10,9 @@
 <div class="login-page">
     <div class="form">
         <form class="login-form" action="verify.php" method="post">
-            <img src="../asset/image/logo.png" height="85">
+            <img src="../asset/image/logo.png" class="login-logo">
             <p>Login</p>
-            <input type="text" name="email" placeholder="email" required>
+            <input type="email" name="email" placeholder="email" required>
             <input type="password" name="password" placeholder="password" required>
             <button>login</button>
             <p class="message">Not registered? <a href="register.php">Create an account</a></p>

@@ -10,7 +10,7 @@
 <div class="login-page">
     <div class="form">
         <form class="login-form" action="verify-signup.php" method="post">
-            <img src="../asset/image/logo.png" height="85">
+            <img src="../asset/image/logo.png" class="login-logo">
             <p>Create New Account</p>
             <input type="text" name="full_name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email Address"/>

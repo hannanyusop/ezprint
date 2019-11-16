@@ -27,7 +27,10 @@
                 <span>Order Number: #<?= $job['id']; ?></span><br>
                 <span>Document: <a target="_blank" href="<?= $job['file']; ?>"> View<a/></span><br>
                 <span>Status: <?= getJobStatus($job['status']); ?></span><br>
-                <span>Total Paid: <?= displayPrice($job['total_price']); ?></span><br>
+                <span>Total Paid: <?= displayPrice($job['total_price']); ?></span><br><br>
+                <span class="">Pickup Security Code: <?= $job['pickup_code'] ?></span><br>
+                <small class="text-info text-sm">Pickup Security Code will be generate after job completed.</small>
+
 
                 <p>Add on:</p>
                 <ul id="pricelist">
