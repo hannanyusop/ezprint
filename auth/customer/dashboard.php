@@ -8,12 +8,14 @@ $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY sta
 ?>
 <main role="main">
     <section class="panel important">
-        <h2>Welcome to Your Dashboard </h2>
-        <ul>
-            <li>Important panel that will always be really wide Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-            <li>Aliquam tincidunt mauris eu risus.</li>
-            <li>Vestibulum auctor dapibus neque.</li>
-        </ul>
+        <div class="content">
+            <h4 class="text-success">Welcome back, <i><?= $user['fullname'] ?></i> </h4>
+            <ul>
+                <li>Important panel that will always be really wide Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                <li>Aliquam tincidunt mauris eu risus.</li>
+                <li>Vestibulum auctor dapibus neque.</li>
+            </ul>
+        </div>
     </section>
     <section class="panel">
         <h2>My Jobs</h2>
