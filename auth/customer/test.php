@@ -1,32 +1,14 @@
-<?php
+Customer Detail : <br>
+Job Cost : <br>
+Link : <a href="<?= 'http://'.$_SERVER['HTTP_HOST'].'/auth/staff/job-view.php?id=2' ?>"><?= 'http://'.$_SERVER['HTTP_HOST'].'/auth/staff/job-view.php?id=2' ?></a>
 
-#example code for log2 N
-$n = 8;
-$y = 1;
-$num1 = rand();
-$num2 = rand();
-
-echo "<br>=========================<br>";
-echo "Let's say N is".$n;
-echo "<br>=========================<br>";
-for($x = 1; $x<$n; $x*=2){
-
-    echo "Current Loop:$y<br>";
-    echo "Current X is ".$x;
-
-    echo "<br> =>Num 1 is $num1 and num 2 is $num2<br>";
-
-    if($num1 < $num2){
-        echo "ANS: num 2 is bigger than num 1!";
-    }else{
-        echo "ANS: num 1 is bigger than num 2!";
-    }
-
-    #increament y to get total count
-    $y++;
-
-    echo "<br>=========================<br>";
-
-}
-
-?>
+<br><br>
+<small>
+    <i>This email was generated automatically by system. Don't reply this email
+        <br>For inquiry please call our Customer Service 06-425635654543</i>
+</small>
+<br><br>
+<small>
+    <i>'To give customers the most compelling printing experience possible' <br>- Hannan Yusop (Managing Director & Founder)</i>
+    <br>
+</small>

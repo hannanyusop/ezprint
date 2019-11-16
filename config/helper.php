@@ -1,5 +1,9 @@
 <?php
 
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 include_once 'db_config.php';
 
 function displayPrice($price){
@@ -144,4 +148,39 @@ function getOption($name, $default = ''){
 
     return $option['value'];
 
+}
+
+function sendEmail($recipient_email, $subject, $body){
+
+    require '../../vendor/autoload.php';
+
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+//        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $GLOBALS['smtp_host'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $GLOBALS['smtp_username'];                     // SMTP username
+        $mail->Password   = $GLOBALS['smtp_password'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $mail->Port       = 587;                                    // TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('noreply@ezprint.my', 'ezPrint No-reply');
+        $mail->addAddress($recipient_email);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+//        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+//        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }

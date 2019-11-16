@@ -13,6 +13,10 @@
 
     $job_id = (int)$db->insert_id;
 
+    #get data for current job
+    $cq_q = $db->query("SELECT * FROM jobs as j LEFT JOIN users as u ON u.id=j.customer_id WHERE j.id=$job_id");
+    $cq = $cq_q->fetch_assoc();
+
     #inserting job's add on
     foreach ($job['addOn'] as $add_on){
         #insert data to database;
@@ -40,6 +44,25 @@
         echo "Error: " . $credit_transaction . "<br>" . $db->error; exit();
     }
 
+    $body = "Customer Detail : $cq[fullname]<br>
+            Job Cost : ".displayPrice($cq['total_price'])."<br>
+            Link : <a href='http://$_SERVER[HTTP_HOST]/auth/staff/job-view.php?id=$job_id'>http://$_SERVER[HTTP_HOST]/auth/staff/job-view.php?id=$job_id</a>
+            
+            <br><br>
+            <small>
+                <i>This email was generated automatically by system. Don't reply this email
+                    <br>For inquiry please call our Customer Service 06-425635654543</i>
+            </small>
+            <br><br>
+            <small>
+                <i>'To give customers the most compelling printing experience possible' <br>- Hannan Yusop (Managing Director & Founder)</i>
+                <br>
+            </small>";
     #all query successfully executed without error;
-    echo "<script>alert('Job successfully created!');window.location='dashboard.php'</script>";
+    try{
+        sendEmail($GLOBALS['admin_email'], 'New Job Created', $body);
+        echo "<script>alert('Job successfully created!');window.location='dashboard.php'</script>";
+    }catch (Exception $e){
+        echo "<script>alert('Job successfully created!');window.location='dashboard.php'</script>";
+    }
 ?>
