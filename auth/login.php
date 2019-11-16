@@ -11,11 +11,9 @@
     <div class="form">
         <form class="register-form" action="verify-signup.php" method="post">
             <p>Create New Account</p>
-            <input type="text" name="fullname" placeholder="Full Name" required>
+            <input type="text" name="full_name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email Address"/>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-            <button>create</button>
+            <button type="submit" name="register">Create Account</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
         <form class="login-form" action="verify.php" method="post">

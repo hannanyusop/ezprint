@@ -101,9 +101,9 @@
         if($('#confirm_password').val() != '' || $('#new_password').val() != ''){
 
             if ($('#new_password').val() == $('#confirm_password').val()) {
-                $("#reset_password").attr("disabled", true);$('#message').html('Matching').css('color', 'green');
+                $('#message').html('Matching').css('color', 'green');
             } else {
-                $('#message').html('Password Not Matching').css('color', 'red'); $("#reset_password").removeAttr("disabled")
+                $('#message').html('Password Not Matching').css('color', 'red');
 
             }
         }

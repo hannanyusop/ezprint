@@ -3,14 +3,14 @@
 <?php include_once('../permission_customer.php') ?>
 <?php include_once('layout/aside.php') ?>
 <?php
-    if(isset($_GET['status'])){
+    if(isset($_GET['status']) && $_GET['status'] != ""){
 
         $condition = "AND status= $_GET[status]";
 
     }else{
-        $condition = "";
+        $condition = " ";
     }
-    $result = $db->query("SELECT * FROM jobs  WHERE customer_id=$user_id"." $condition ORDER BY status ASC");
+    $result = $db->query("SELECT * FROM jobs  WHERE customer_id=$user_id $condition ORDER BY status ASC");
 ?>
 <main role="main">
 
