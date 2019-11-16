@@ -8,6 +8,7 @@ $result = $db->query("SELECT * FROM credit_transaction WHERE account_id=$user[ac
 ?>
 <main role="main">
     <section class="panel important">
+        <p class="content text-info">*Online top-up not available now. Please walk-in to our shop to recharge your account. </p>
         <h2>Account Transaction History</h2>
         <table>
             <tr>

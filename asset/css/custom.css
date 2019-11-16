@@ -124,6 +124,10 @@ footer[role=contentinfo] {
     margin: 1rem;
 }
 
+.form-group{
+    margin: 10px;
+}
+
 .panel .content{
     margin: 20px;
 }

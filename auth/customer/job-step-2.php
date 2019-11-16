@@ -3,31 +3,36 @@
 <?php include_once('../permission_customer.php') ?>
 <?php
 
-    $mpdf = new \Mpdf\Mpdf();
 
     $c = getOption('price_colour', 0.20);
     $bnw = getOption('price_black_and_white', 0.10);
 
+    if(isset($_POST['submit'])){
 
-    $target_dir = "../../asset/uploads/";
+        $mpdf = new \Mpdf\Mpdf();
 
-    $file_tmp = $_FILES['file']['tmp_name'];
+        $target_dir = "../../asset/uploads/";
 
-    $file_name = $_FILES["file"]["name"];
-    $file_location = $target_dir.$file_name;
+        $file_tmp = $_FILES['file']['tmp_name'];
 
-    try{
-        move_uploaded_file($file_tmp,$file_location);
-    }catch (Exception $e){
-        var_dump($e);exit();
+        $file_name = $_FILES["file"]["name"];
+        $file_location = $target_dir.$file_name;
+
+        try{
+            move_uploaded_file($file_tmp,$file_location);
+        }catch (Exception $e){
+            var_dump($e);exit();
+        }
+
+        $mpdf->SetImportUse();
+        $totalPage = $mpdf->SetSourceFile($file_location);
+
+        $job = ['file' => $file_location, 'total_page' => $totalPage];
+        $_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
+
+    }else{
+        $totalPage = $_SESSION['jobs'][$_SESSION['auth']['user_id']]['total_page'];
     }
-
-
-    $mpdf->SetImportUse();
-    $totalPage = $mpdf->SetSourceFile($file_location);
-
-    $job = ['file' => $file_location, 'total_page' => $totalPage];
-    $_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
 
 ?>
 <?php include_once('layout/aside.php') ?>
@@ -38,15 +43,24 @@
         <section class="panel">
             <h2>Add Job Step 2</h2>
             <form action="job-step-3.php" method="post">
-                <div class="twothirds">
+                <div class="content">
 
-                    Total Page : <?= $totalPage; ?><br>
-                    Colour:<br>
-                    <input type="radio" name="colour" value="1" required> Colour (<?= displayPrice($c).'/page' ?>)<br>
-                    <input type="radio" name="colour" value="0" required> Black & White (<?= displayPrice($bnw).'/page' ?>)
-                    <br><h2>Total Price : RM<span id="total_price">0.00</span></h2>
+                    Total Page : <?= $totalPage; ?><br><br>
 
-                    <div>
+                    2. Select PICKUP date & time
+                    <label for="pickup_date">Date</label>
+                    <input type="date" name="pickup_date" value="<?= (isset($_SESSION['jobs'][$_SESSION['auth']['user_id']]['date']))? $_SESSION['jobs'][$_SESSION['auth']['user_id']]['date'] : date("Y-m-d") ?>">
+
+                    <label for="pickup_date">Time</label>
+                    <input type="time" name="pickup_time" value="<?= (isset($_SESSION['jobs'][$_SESSION['auth']['user_id']]['date']))? $_SESSION['jobs'][$_SESSION['auth']['user_id']]['time'] : date("H:i")?>">
+                    <small class="text-info text-sm"><br>Notes: Working Hour 10:00 AM - 10:00PM</small><br>
+                    <br>
+                    3. Select Printing Mode:<br><br>
+                    <input type="radio" name="colour" value="1" <?= (isset($_SESSION['jobs'][$_SESSION['auth']['user_id']]['colour']))? ($_SESSION['jobs'][$_SESSION['auth']['user_id']]['colour'] == 'colour')? "checked" : "" : ""; ?> required> Colour (<?= displayPrice($c).'/page' ?>)<br>
+                    <input type="radio" name="colour" value="0" <?= (isset($_SESSION['jobs'][$_SESSION['auth']['user_id']]['colour']))? ($_SESSION['jobs'][$_SESSION['auth']['user_id']]['colour'] == 'black & white')? "checked" : "" : ""; ?> required> Black & White (<?= displayPrice($bnw).'/page' ?>)
+                    <br><h2 class="text-success m-2">Total Price : RM<span id="total_price">0.00</span></h2>
+
+                    <div class="float-right">
                         <a href="job-step-1.php" class="btn btn-md btn-warning">Previous</a>
                         <input class="btn btn-md btn-success" name="submit" type="submit" value="Next" />
                     </div>

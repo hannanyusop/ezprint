@@ -8,12 +8,14 @@
         <section class="panel">
             <h2>Add Job Step 1</h2>
             <form action="job-step-2.php" method="post" enctype="multipart/form-data">
-                <div class="twothirds">
-                    <div>
+                <div class="content">
+                    <div class="content">
+                        <label>1. Select File</label>
                         <input type="file" name="file" accept="application/pdf">
+                        <small class="text-info text-sm">*Only PDF format allowed</small><br>
                     </div>
 
-                    <div>
+                    <div class="float-right content">
                         <input class="btn btn-md btn-success" name="submit" type="submit" value="Next" />
                     </div>
 

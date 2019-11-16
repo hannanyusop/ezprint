@@ -10,12 +10,22 @@ $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY sta
     <section class="panel important">
         <div class="content">
             <h4 class="text-success">Welcome back, <i><?= $user['fullname'] ?></i> </h4>
+
+            <p class="font-weight-bold text-danger">Important : By using this services, you agree to our <a class="text-info" href="">Terms</a>
+                and that you have read our <a class="text-info" href="#">Data Policy</a>,
+                including our <a class="text-info" href="#">Cookies</a> .</p>
             <ul>
-                <li>Important panel that will always be really wide Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Aliquam tincidunt mauris eu risus.</li>
-                <li>Vestibulum auctor dapibus neque.</li>
+                <li>Working Hours : 10:00 AM - 10:00 PM</li>
+                <li>Working Days: Everyday (Except Public Holiday)</li>
+                <li>Online top-up not available now. Please walk-in to our shop to recharge your account.</li>
             </ul>
         </div>
+    </section>
+    <section class="panel">
+        <h2>Information</h2>
+        <ul>
+            <li>ACCOUNT BALANCE: <?= displayPrice($user['credit_balance']) ?></li>
+        </ul>
     </section>
     <section class="panel">
         <h2>My Jobs</h2>
@@ -48,12 +58,6 @@ $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY sta
                 </tr>
             <?php } ?>
         </table>
-    </section>
-    <section class="panel">
-        <h2>Chart</h2>
-        <ul>
-            <li>ACCOUNT BALANCE: <?= displayPrice($user['credit_balance']) ?></li>
-        </ul>
     </section>
 </main>
 

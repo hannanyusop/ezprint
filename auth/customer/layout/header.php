@@ -5,7 +5,7 @@
     <title>ezPrint</title>
     <h1>ezPrint</h1>
     <ul class="utilities">
-        <li class="users"><a href="#">My Account</a></li>
+        <li class="users"><a href="../customer/account-update.php">My Account</a></li>
         <li class="logout warn"><a href="../../auth/logout.php">Log Out</a></li>
     </ul>
     <link rel="stylesheet" href="../../asset/css/custom.css">
