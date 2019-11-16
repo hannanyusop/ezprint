@@ -11,17 +11,37 @@
             echo "<script>alert('Job not found!');window.location='dashboard.php'</script>";
         }
 
+        $customer_q = $db->query("SELECT * FROM users WHERE id=$job[customer_id]");
+        $customer = $customer_q->fetch_assoc();
+
         #add on list
         $job_result = $db->query("SELECT * FROM jobs_has_add_on as a LEFT JOIN add_on as b ON a.add_on_id=b.id WHERE job_id=$job[id]");
 
         #update job status
-        $update_job = "UPDATE jobs SET status=3, staff_id=$user_id WHERE id=$job[id]";
+        $code = generateConfirmationCode();
+        $update_job = "UPDATE jobs SET status=3,pickup_code='$code',staff_id=$user_id WHERE id=$job[id]";
 
         if (!$db->query($update_job)) {
             echo "Error: " . $update_job . "<br>" . $db->error; exit();
         }
 
-        echo "<script>alert('Job marked as completed!');window.location='job-view.php?id=".$job[id]."'</script>";
+        $body = "Your job #$job[id] completed. Come and pickup your document.<br>
+                            <p>Pickup Security Code: <b>$code</b> <small>(Don't show this code to other person)</small></p><br>
+                            Working Hours : 10:00 AM - 10:00PM<br>
+                            Working Days : Everyday (Except Public Holiday)                             
+                            <br><br>
+                            <small>
+                                <i>This email was generate automatically by system. Don't reply this email
+                                    <br>For inquiry please call our Customer Service 06-425635654543</i>
+                            </small>
+                            <br><br>
+                            <small>
+                                <i>'To give customers the most compelling printing experience possible' <br>- Hannan Yusop (Managing Director & Founder)</i>
+                                <br>
+                            </small>";
+
+        sendEmail($customer['email'], "JOB #$job[id] Ready To Pickup", $body);
+        echo "<script>alert('Job marked as completed!');window.location='job-view.php?id=".$job['id']."'</script>";
 
     }else{
         echo "<script>alert('Invalid action!');window.location='dashboard.php'</script>";

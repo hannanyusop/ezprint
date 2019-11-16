@@ -1,7 +1,8 @@
 <nav role="navigation">
     <ul class="main">
         <li class="dashboard"><a href="dashboard.php">Dashboard</a></li>
-        <li class="write"><a href="job-list.php">My Task</a></li>
+        <li class="write"><a href="job-list.php">Job List</a></li>
+        <li class="write"><a href="job-list-my.php">My Job</a></li>
         <li class="edit"><a href="customer-list.php">Customer List</a></li>
 
         <?php if($_SESSION['auth']['role'] == 1){ ?>

@@ -6,20 +6,20 @@
     if(isset($_GET['status']) && isset($_GET['name'])){
 
         if($_GET['status'] != ''){
-            $condition = "WHERE status = $_GET[status] AND email LIKE '%$_GET[name]%'";
+            $condition = "AND status= $_GET[status] AND email LIKE '%$_GET[name]%'";
         }else{
-            $condition = "WHERE email LIKE '%$_GET[name]%'";
+            $condition = "AND email LIKE '%$_GET[name]%'";
         }
 
     }else{
         $condition = "";
     }
-    $result = $db->query("SELECT *,j.id as job_id,u.id as user_id FROM jobs as j LEFT JOIN users as u ON j.customer_id=u.id "." $condition ORDER BY status ASC");
+    $result = $db->query("SELECT *,j.id as job_id,u.id as user_id FROM jobs as j LEFT JOIN users as u ON j.customer_id=u.id  WHERE staff_id=$user_id"." $condition ORDER BY status ASC");
 ?>
 <main role="main">
 
     <section class="panel important">
-        <h2>JOB LIST</h2>
+        <h2>My Jobs</h2>
         <form method="get">
             <div class="onethird">
                 <input type="text" name="name" value="<?= (isset($_GET['name']))? $_GET['name'] : '' ?>" placeholder="Customer Email" />

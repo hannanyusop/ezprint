@@ -1,5 +1,4 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
 <?php
     if(isset($_GET['id'])){
@@ -24,12 +23,9 @@
     }
 ?>
 
-<?php include_once('layout/aside.php') ?>
 <link rel="stylesheet" type="text/css" href="../../asset/css/invoice.css">
-
 <main role="main">
     <section class="panel important">
-        <h2>Invoice</h2>
         <div class="content" id="myDiv">
 
                 <div id="page-wrap">
@@ -114,16 +110,15 @@
                         </tr>
 
                     </table>
-
-                </div>
-
-                <div class="float-right content">
-                    <a class="btn btn-md btn-info"  target="_blank" href="job-invoice-print.php?id=<?= $_GET['id'] ?>">Print</a>
-                    <a class="btn btn-md btn-warning" href="job-list.php">Back</a>
                 </div>
             </div>
     </section>
 </main>
 
-<?php include_once('layout/footer.php') ?>
 </html>
+<script type="text/javascript" src="../../asset/js/jquery.js"></script>
+<script>
+    $( document ).ready(function() {
+        window.print();
+    });
+</script>

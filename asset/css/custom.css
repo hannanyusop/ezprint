@@ -193,8 +193,12 @@ form label, form legend {
 }
 
 .form-lg{
-    width: 80%;
+    width: 100%;
     padding: 1em;
+}
+
+.uppercase{
+    text-transform: uppercase;
 }
 /* feedback */
 .error {

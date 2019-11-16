@@ -112,7 +112,7 @@ $income = json_encode($income); $labels = json_encode(array_values(getStrMonth()
     var count = document.getElementById('count').getContext('2d');
     var x = new Chart(count, {
         // The type of chart we want to create
-        type: 'line',
+        type: 'bar',
         labelString: 'Testing',
 
         data: {
