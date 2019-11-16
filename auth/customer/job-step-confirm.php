@@ -5,7 +5,8 @@
     $job = $_SESSION['jobs'][$user_id];
 
     #inserting job
-    $job_sql = "INSERT INTO jobs (customer_id, staff_id, file, status, total_price, pickup_date, created_at) VALUES ($user_id , 0, '$job[file]', 1, $job[subtotal],  CURRENT_TIMESTAMP , CURRENT_TIMESTAMP)";
+    $job_sql = "INSERT INTO jobs (customer_id, staff_id, file, total_page, printing_mode, printing_mode_price, status, total_price, pickup_date, created_at) 
+                VALUES ($user_id , 0, '$job[file]',$job[total_page],$job[mode], $job[mode_price], 1, $job[subtotal],  '$job[datetime]' , CURRENT_TIMESTAMP)";
 
     if (!$db->query($job_sql)) {
         echo "Error: " . $job_sql . "<br>" . $db->error; exit();

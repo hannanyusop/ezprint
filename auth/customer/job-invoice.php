@@ -2,37 +2,26 @@
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
 <?php
-    $user_id = $_SESSION['auth']['user_id'];
-    $jobs = $_SESSION['jobs'][$user_id];
-    $jobs['addOn'] = [];
+    if(isset($_GET['id'])){
 
-    $subtotal = $jobs['price'];
+        $job_q = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id AND id=$_GET[id] AND status=3");
+        $job = $job_q->fetch_assoc();
 
-    foreach ($_POST['add-on'] as $id){
-
-        $result = $db->query("SELECT * FROM add_on WHERE is_active=1 AND id=".$id);
-        $addOn = $result->fetch_assoc();
-
-        if(!is_null($addOn)){
-
-            $jobs['addOn'][$id]['id'] =  (int)$addOn['id'];
-            $jobs['addOn'][$id]['price'] =  (float)$addOn['price'];
-            $jobs['addOn'][$id]['name'] =  $addOn['name'];
-            $subtotal += $addOn['price'];
+        if(!$job){
+            #not found
+            echo "<script>alert('Job not found!');window.location='job-list.php'</script>";
+            exit();
         }
+
+        $customer_q = $db->query("SELECT * FROM users WHERE id=$job[customer_id]");
+        $customer = $customer_q->fetch_assoc();
+
+        $add_on_q = $db->query("SELECT * FROM jobs_has_add_on as a LEFT JOIN add_on as b ON a.add_on_id=b.id WHERE job_id=$job[id]");
+
+    }else{
+        echo "<script>alert('Invalid parameter!');window.location='job-list.php'</script>";
+        exit();
     }
-
-    #total price
-    $jobs['subtotal'] = (float)$subtotal;
-
-    if($jobs['subtotal'] > $user['credit_balance']){
-        echo "<script>alert('Sorry! Credit balance not enough!');window.location='job-step-3.php'</script>";
-    }
-
-    #save to session;
-    $_SESSION['jobs'][$user_id] = $jobs;
-
-    $credit = (float)$user['credit_balance'];
 ?>
 
 <?php include_once('layout/aside.php') ?>
@@ -50,9 +39,9 @@
 
                     <div id="identity">
                         <address id="address">
-                            <?= $user['fullname']; ?><br>
+                            <?= $customer['fullname']; ?><br>
 
-                            Email: <?= $user['email']; ?>
+                            Email: <?= $customer['email']; ?>
                         </address>
 
                         <div id="logo">
@@ -68,12 +57,12 @@
 
                         <table id="meta">
                             <tr>
-                                <td class="meta-head">Invoice #</td>
-                                <td><p>-</p></td>
+                                <td class="meta-head">Invoice </td>
+                                <td><p>#<?= $job['id'] ?></p></td>
                             </tr>
                             <tr>
                                 <td class="meta-head">Date</td>
-                                <td><p id="date">December 15, 2009</p></td>
+                                <td><p id="date"><?= date("H:i A d/M/Y", strtotime($job['created_at'])) ?></p></td>
                             </tr>
 
                         </table>
@@ -92,37 +81,37 @@
 
                         <tr class="item-row">
                             <td class="item-name">Print</td>
-                            <td class="description"><?=  $jobs['colour']; ?></td>
-                            <td><?= displayPrice(0.20)?></td>
-                            <td align="center"><?= $jobs['total_page'] ?> pg(s)</td>
-                            <td><?= displayPrice($jobs['price']); ?></td>
+                            <td class="description">Mode: <?= getPrintingMode($job['printing_mode']) ?></td>
+                            <td><?= displayPrice($job['printing_mode_price'])?></td>
+                            <td align="center"><?= $job['total_page'] ?> pg(s)</td>
+                            <td><?= displayPrice($job['printing_mode_price']*$job['total_page']); ?></td>
                         </tr>
 
-                        <?php foreach ($jobs['addOn'] as $job) { ?>
+                        <?php if($add_on_q->num_rows > 0){ while($add = $add_on_q->fetch_assoc()){ ;?>
                             <tr class="item-row">
-                                <td class="item-name">Add-on: <?= $job['name'] ?></td>
+                                <td class="item-name">Add-on: <?= $add['name'] ?></td>
                                 <td class="description"></td>
-                                <td><?= displayPrice($job['price']) ?></td>
+                                <td><?= displayPrice($add['price']) ?></td>
                                 <td align="center">1</td>
-                                <td><?= displayPrice($job['price']); ?></td>
+                                <td><?= displayPrice($add['price']); ?></td>
                             </tr>
-                        <?php } ?>
+                        <?php }  }?>
                         <tr>
 
                             <td colspan="2" class="blank"> </td>
                             <td colspan="2" class="total-line">Total</td>
-                            <td class="total-value"><div id="total"><?= displayPrice($jobs['subtotal']) ?></div></td>
+                            <td class="total-value"><div id="total"><?= displayPrice($job['total_price']) ?></div></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="blank"> </td>
                             <td colspan="2" class="total-line">Amount Paid</td>
 
-                            <td class="total-value"><?= displayPrice($credit) ?></td>
+                            <td class="total-value"><?= displayPrice($job['total_price']) ?></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="blank"> </td>
                             <td colspan="2" class="total-line balance">Balance Due</td>
-                            <td class="total-value balance"><div class="due"><?= displayPrice($credit-$jobs['subtotal']) ?></div></td>
+                            <td class="total-value balance"><div class="due"><?= displayPrice(0.00) ?></div></td>
                         </tr>
 
                     </table>

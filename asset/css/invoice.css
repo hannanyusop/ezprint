@@ -14,9 +14,9 @@
 
 textarea { border: 0; font: 14px Georgia, Serif; overflow: hidden; resize: none; }
 table { border-collapse: collapse; }
-table td, table th { border: 1px solid black; padding: 5px; }
+table td, table th { border: 1px solid #dbdbdb; padding: 5px; }
 
-#header { height: 15px; width: 100%; margin: 20px 0; background: #222; text-align: center; color: white; font: bold 15px Helvetica, Sans-Serif; text-decoration: uppercase; letter-spacing: 20px; padding: 8px 0px; }
+#header { height: 30px; width: 100%; margin: 20px 0; background: #2fa156; text-align: center; color: white; font: bold 15px Helvetica, Sans-Serif; text-decoration: uppercase; letter-spacing: 20px; padding: 8px 0px; }
 
 #address { width: 250px; height: 150px; float: left; }
 #customer { overflow: hidden; }
@@ -31,7 +31,7 @@ table td, table th { border: 1px solid black; padding: 5px; }
 #meta td textarea { width: 100%; height: 20px; text-align: right; }
 
 #items { clear: both; width: 100%; margin: 30px 0 0 0; border: 1px solid black; }
-#items th { background: #eee; }
+#items th { background: #2fa156; }
 #items textarea { width: 80px; height: 50px; }
 #items tr.item-row td { border: 0; vertical-align: top; }
 #items td.description { width: 300px; }

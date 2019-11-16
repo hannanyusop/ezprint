@@ -1,1 +1,1 @@
-<footer role="contentinfo">Easy Admin Style by Melissa Cabral</footer>
+<footer role="contentinfo">ez-Print By hannan yusop</footer>

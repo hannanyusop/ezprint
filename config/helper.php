@@ -206,3 +206,13 @@ function generateResetPasswordKey() {
     }
     return implode($pass); //turn the array into a string
 }
+
+function getPrintingMode($mode = null){
+
+    $modes = [
+        1 => 'Colour',
+        2 => 'Black & White'
+    ];
+
+    return (is_null($mode))? $modes : $modes[$mode];
+}

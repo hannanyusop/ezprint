@@ -8,7 +8,11 @@ $result = $db->query("SELECT * FROM credit_transaction WHERE account_id=$user[ac
 ?>
 <main role="main">
     <section class="panel important">
-        <p class="content text-info">*Online top-up not available now. Please walk-in to our shop to recharge your account. </p>
+        <div class="feedback">Service information
+            <ul>
+                <li>Online top-up not available now. Please walk-in to our shop to recharge your account. </li>
+            </ul>
+        </div>
         <h2>Account Transaction History</h2>
         <table>
             <tr>
@@ -36,7 +40,7 @@ $result = $db->query("SELECT * FROM credit_transaction WHERE account_id=$user[ac
                 </tr>
             <?php } }else{ ?>
                 <tr>
-                    <td colspan="6">No data</td>
+                    <td class="text-center" colspan="6">No data</td>
                 </tr>
             <?php } ?>
         </table>

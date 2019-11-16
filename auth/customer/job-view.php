@@ -38,7 +38,10 @@
                     <?php } ?>
                 </ul>
 
-                <a href="job-list.php" class="btn btn-md btn-info">Back To List</a>
+                <?php if($job['status'] == '3'){ ?>
+                <a href="job-invoice.php?id=<?= $job['id'] ?>" class="btn btn-md btn-info">View Invoice</a>
+                <?php } ?>
+                <a href="job-list.php" class="btn btn-md btn-success">Back To List</a>
             </div>
         </section>
     </div>

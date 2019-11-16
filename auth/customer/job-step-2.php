@@ -45,6 +45,7 @@
             <form action="job-step-3.php" method="post">
                 <div class="content">
 
+                    <h4 class="text-success">ACCOUNT BALANCE : <?= displayPrice($user['credit_balance']) ?></h4>
                     Total Page : <?= $totalPage; ?><br><br>
 
                     2. Select PICKUP date & time

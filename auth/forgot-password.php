@@ -44,6 +44,7 @@ if(isset($_GET['key'])){
 <div class="login-page">
     <div class="form">
         <form class="login-form" method="post">
+            <img src="../asset/image/logo.png" height="85">
             <p>Recover Password</p>
             <input type="email" name="email" placeholder="email" value="<?= $user['email'] ?>" disabled>
             <input type="password" name="password" id="password" placeholder="New Password" required>

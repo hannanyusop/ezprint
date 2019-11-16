@@ -11,7 +11,7 @@ $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY sta
         <div class="content">
             <h4 class="text-success">Welcome back, <i><?= $user['fullname'] ?></i> </h4>
 
-            <p class="font-weight-bold text-danger">Important : By using this services, you agree to our <a class="text-info" href="">Terms</a>
+            <p>*Important : By using this services, you agree to our <a class="text-info" href="">Terms</a>
                 and that you have read our <a class="text-info" href="#">Data Policy</a>,
                 including our <a class="text-info" href="#">Cookies</a> .</p>
             <ul>

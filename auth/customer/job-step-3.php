@@ -24,6 +24,8 @@
 
         $jobs['price'] = $price;
         $jobs['colour'] = ($colour == 1)? "colour" : "black & white";
+        $jobs['mode'] = $colour;
+        $jobs['mode_price'] = $rate;
         $jobs['date'] = $_POST['pickup_date'];
         $jobs['time'] = $_POST['pickup_time'];
         $jobs['datetime'] = $merge_date;

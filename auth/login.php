@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <div class="login-page">
-    <div class="form">>
+    <div class="form">
         <form class="login-form" action="verify.php" method="post">
+            <img src="../asset/image/logo.png" height="85">
             <p>Login</p>
             <input type="text" name="email" placeholder="email" required>
             <input type="password" name="password" placeholder="password" required>
