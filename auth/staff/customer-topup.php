@@ -52,29 +52,38 @@ if(isset($_GET['id'])){
         <section class="panel">
             <h2>Top-up</h2>
             <form method="post">
-                <div class="full">
-                    <label for="email">E-mail:</label>
-                    <input type="text" name="email" value="<?= $customer['email'] ?>" disabled>
+                <div class="content">
 
-                    <label for="full_name">Full Name:</label>
-                    <input type="text" name="full_name" value="<?= $customer['fullname'] ?>" disabled>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="text" name="email" value="<?= $customer['email'] ?>" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="full_name">Full Name:</label>
+                        <input type="text" name="full_name" value="<?= $customer['fullname'] ?>" disabled>
+                    </div>
 
 
-                    <label for="account_balance">Account Balance</label>
-                    <input id="account_balance" type="text" value="<?= displayPrice($customer['credit_balance']) ?>" disabled>
+                    <div class="form-group">
+                        <label for="account_balance">Account Balance</label>
+                        <input id="account_balance" type="text" value="<?= displayPrice($customer['credit_balance']) ?>" disabled>
+                    </div>
 
-                    <label for="amount">Amount</label>
-                    <input id="amount" class="form-lg" name="amount" type="number" value="">
+                   <div class="form-group">
+                       <label for="amount">Amount</label>
+                       <input id="amount" class="form-lg" name="amount" type="number" value="">
+                   </div>
 
                     <div class="">
                         <small class="text-sm font-weight-bold text-success">Instant value : </small>
-                        <button class="btn btn-sm btn-success">RM5.00</button>
-                        <button class="btn btn-sm btn-warning">RM10.00</button>
-                        <button class="btn btn-sm btn-danger">R15.00</button>
-                        <button class="btn btn-sm btn-info">RM20.00</button>
+                        <a class="btn btn-sm btn-success instant" data-value="5.00">RM5.00</a>
+                        <a class="btn btn-sm btn-warning instant" data-value="10.00">RM10.00</a>
+                        <a class="btn btn-sm btn-danger instant" data-value="15.00">R15.00</a>
+                        <a class="btn btn-sm btn-info instant" data-value="20.00">RM20.00</a>
                     </div>
 
-                    <div>
+                    <div class="float-right content">
                         <input class="btn btn-md btn-success " name="submit" type="submit" value="Submit" />
                     </div>
 
@@ -85,4 +94,12 @@ if(isset($_GET['id'])){
 </main>
 
 <?php include_once('layout/footer.php') ?>
+<script type="text/javascript" src="../../asset/js/jquery.js"></script>
+<script type="text/javascript">
+
+    $(".instant").click(function () {
+        $("#amount").val($(this).data('value'));
+    });
+
+</script>
 </html>

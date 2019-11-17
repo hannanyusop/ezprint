@@ -3,7 +3,7 @@
 <?php include_once('../permission_customer.php') ?>
 <?php include_once('layout/aside.php') ?>
 <?php
-$result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY status ASC");
+$result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id AND status !=5 ORDER BY status ASC LIMIT 10");
 //    var_dump($result);exit();
 ?>
 <main role="main">
@@ -11,7 +11,7 @@ $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id ORDER BY sta
         <div class="content">
             <h4 class="text-success">Welcome back, <i><?= $user['fullname'] ?></i> </h4>
 
-            <p>*Important : By using this services, you agree to our <a class="text-info" href="">Terms</a>
+            <p>*Important : By using our service, you agree to our <a class="text-info" href="">Terms</a>
                 and that you have read our <a class="text-info" href="#">Data Policy</a>,
                 including our <a class="text-info" href="#">Cookies</a> .</p>
             <ul>

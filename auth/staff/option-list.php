@@ -74,7 +74,7 @@
                 <label for="black_and_white_price">Colour Price</label>
                 <input type="text" name="option[price_colour]" value="<?= getOption('price_colour', 0.20) ?>" placeholder="Full Name" />
 
-                <button type="submit" name="submit" class="btn btn-md btn-info">Search</button>
+                <button type="submit" name="submit" class="btn btn-md btn-success">Update Price</button>
             </div>
         </form>
     </section>

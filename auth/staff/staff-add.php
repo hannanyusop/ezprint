@@ -8,6 +8,10 @@ if(isset($_POST['submit'])){
     #check if email is unique
     if(isset($_POST['email'])){
 
+        if($_POST['email'] == '' || $_POST['name'] != ''){
+            echo "<script>alert('Please insert required field!');window.location='staff-add.php'</script>";
+        }
+
         $user_q = $db->query("SELECT * FROM users WHERE email='$_POST[email]'");
         $job = $user_q->fetch_assoc();
 
@@ -39,12 +43,16 @@ if(isset($_POST['submit'])){
         <section class="panel">
             <h2>Add Staff</h2>
             <form method="post">
-                <div class="twothirds">
-                    <label for="email">E-mail:</label>
-                    <input type="text" name="email" id="email" placeholder="Email" />
 
-                    <label for="full_name">Full Name:</label>
-                    <input type="text" name="full_name" id="full_name" placeholder="Full Name" />
+                <div class="feedback error">*All field is required</div>
+
+                <div class="content">
+
+                    <label for="email">E-mail:<small class="text-sm text-danger">*Required</small></label>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+
+                    <label for="full_name">Full Name:<small class="text-sm text-danger">*Required</small></label>
+                    <input type="text" name="full_name" id="full_name" placeholder="Full Name" required>
 
                     <label for="password">Password:</label>
                     <input type="text" name="password" id="password" value="secret" disabled/>
@@ -55,7 +63,7 @@ if(isset($_POST['submit'])){
                         </label>
                     </div>
 
-                    <div>
+                    <div class="float-right">
                         <input class="btn btn-lg btn-success" name="submit" type="submit" value="Submit" />
                     </div>
 
