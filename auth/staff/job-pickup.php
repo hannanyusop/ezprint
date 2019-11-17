@@ -62,7 +62,7 @@
 
                             $_SESSION[$user_id]['code'] = $_POST['code'];
 
-                            if($job['pickup_code'] == $_POST['code']){
+                            if($job['pickup_code'] == strtoupper($_POST['code'])){
                                 $db->query("UPDATE jobs SET status=5 WHERE id=$job[id]");
 
                                 echo "<script>alert('Code Accepted!');window.location='job-view.php?id=$_GET[id]'</script>";

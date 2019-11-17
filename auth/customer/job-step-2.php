@@ -10,25 +10,30 @@
     if(isset($_POST['submit'])){
 
         $mpdf = new \Mpdf\Mpdf();
-
         $target_dir = "../../asset/uploads/";
 
-        $file_tmp = $_FILES['file']['tmp_name'];
+        $temp = explode(".", $_FILES["file"]["name"]);
+        $rename = round(microtime(true)) . '.' . end($temp);
+        $file_location = $target_dir.$rename;
 
-        $file_name = $_FILES["file"]["name"];
-        $file_location = $target_dir.$file_name;
+        if(isset($_FILES['file']['type']) && $_FILES['file']['type'] == 'application/pdf'){
 
-        try{
-            move_uploaded_file($file_tmp,$file_location);
-        }catch (Exception $e){
-            var_dump($e);exit();
+            try{
+                move_uploaded_file($_FILES["file"]["tmp_name"], $file_location);
+            }catch (Exception $e){
+                var_dump($e);exit();
+            }
+
+            $mpdf->SetImportUse();
+            $totalPage = $mpdf->SetSourceFile($file_location);
+
+            $job = ['file' => $file_location, 'total_page' => $totalPage];
+            $_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
+
+        }else{
+            echo "<script>alert('Format File not supported!');window.location='job-step-1.php'</script>";exit();
         }
 
-        $mpdf->SetImportUse();
-        $totalPage = $mpdf->SetSourceFile($file_location);
-
-        $job = ['file' => $file_location, 'total_page' => $totalPage];
-        $_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
 
     }else{
         $totalPage = $_SESSION['jobs'][$_SESSION['auth']['user_id']]['total_page'];

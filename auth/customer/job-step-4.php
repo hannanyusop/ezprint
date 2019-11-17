@@ -46,7 +46,7 @@
 
                 <div id="page-wrap">
 
-                    <h5 id="header">INVOICE</h5>
+                    <h5 id="header">QUOTATION</h5>
 
                     <div id="identity">
                         <address id="address">
@@ -67,10 +67,6 @@
                         <p id="customer-title">ezPrint Services</p>
 
                         <table id="meta">
-                            <tr>
-                                <td class="meta-head">Invoice #</td>
-                                <td><p>-</p></td>
-                            </tr>
                             <tr>
                                 <td class="meta-head">Date</td>
                                 <td><p id="date">December 15, 2009</p></td>
@@ -112,17 +108,6 @@
                             <td colspan="2" class="blank"> </td>
                             <td colspan="2" class="total-line">Total</td>
                             <td class="total-value"><div id="total"><?= displayPrice($jobs['subtotal']) ?></div></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="blank"> </td>
-                            <td colspan="2" class="total-line">Amount Paid</td>
-
-                            <td class="total-value"><?= displayPrice($credit) ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="blank"> </td>
-                            <td colspan="2" class="total-line balance">Balance Due</td>
-                            <td class="total-value balance"><div class="due"><?= displayPrice($credit-$jobs['subtotal']) ?></div></td>
                         </tr>
 
                     </table>

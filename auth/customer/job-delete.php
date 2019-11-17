@@ -28,6 +28,8 @@
                 $db->query("UPDATE accounts SET credit_balance = credit_balance+$amount WHERE user_id=$user_id");
                 $db->query("DELETE FROM credit_transaction WHERE job_id=$job_id");
 
+                unlink($job['file']);
+
                 echo "<script>alert('Job Deleted!');window.location='dashboard.php'</script>";
             }
 
