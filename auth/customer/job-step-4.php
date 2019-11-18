@@ -64,12 +64,12 @@
 
                     <div id="customer">
 
-                        <p id="customer-title">ezPrint Services</p>
+                        <p id="customer-title">ezPrint<span class="text-xs">By Devtech Sdn Bhd</span></p>
 
                         <table id="meta">
                             <tr>
                                 <td class="meta-head">Date</td>
-                                <td><p id="date">December 15, 2009</p></td>
+                                <td><p id="date"><?= date('d F Y') ?></p></td>
                             </tr>
 
                         </table>
@@ -89,7 +89,7 @@
                         <tr class="item-row">
                             <td class="item-name">Print</td>
                             <td class="description"><?=  $jobs['colour']; ?></td>
-                            <td><?= displayPrice(0.20)?></td>
+                            <td><?= displayPrice($jobs['mode_price'])?></td>
                             <td align="center"><?= $jobs['total_page'] ?> pg(s)</td>
                             <td><?= displayPrice($jobs['price']); ?></td>
                         </tr>
@@ -103,11 +103,11 @@
                                 <td><?= displayPrice($job['price']); ?></td>
                             </tr>
                         <?php } ?>
-                        <tr>
+                        <tr id="total">
 
                             <td colspan="2" class="blank"> </td>
                             <td colspan="2" class="total-line">Total</td>
-                            <td class="total-value"><div id="total"><?= displayPrice($jobs['subtotal']) ?></div></td>
+                            <td class="total-value"><div class="text-success font-weight-bold" id=""><?= displayPrice($jobs['subtotal']) ?></div></td>
                         </tr>
 
                     </table>

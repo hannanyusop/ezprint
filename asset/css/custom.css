@@ -395,7 +395,11 @@ td {
 .text-warning{
     color: #f9a038;
 }
-
+.text-xs{
+    font-size: 0.45em;
+    position: absolute;
+    font-weight: 700;
+}
 .text-sm{
     font-size: 0.7em;
 }

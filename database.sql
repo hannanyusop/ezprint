@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 DROP TABLE IF EXISTS `jobs_has_add_on`;
 CREATE TABLE IF NOT EXISTS `jobs_has_add_on` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_id` int(11) NOT NULL,
   `add_on_id` int(11) NOT NULL,
   `price` double(10,2) DEFAULT '0.00',
   PRIMARY KEY (`id`)

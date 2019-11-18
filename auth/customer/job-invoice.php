@@ -25,7 +25,6 @@
 ?>
 
 <?php include_once('layout/aside.php') ?>
-<link rel="stylesheet" type="text/css" href="../../asset/css/invoice.css">
 
 <main role="main">
     <section class="panel important">
@@ -52,7 +51,7 @@
 
                     <div id="customer">
 
-                        <p id="customer-title">ezPrint Services</p>
+                        <p id="customer-title">ezPrint<span class="text-xs">By Devtech Sdn Bhd</span></p>
 
                         <table id="meta">
                             <tr>
@@ -61,7 +60,7 @@
                             </tr>
                             <tr>
                                 <td class="meta-head">Date</td>
-                                <td><p id="date"><?= date("H:i A d/M/Y", strtotime($job['created_at'])) ?></p></td>
+                                <td><p id="date"><?= date("d F Y", strtotime($job['created_at'])) ?></p></td>
                             </tr>
 
                         </table>
@@ -106,11 +105,6 @@
                             <td colspan="2" class="total-line">Amount Paid</td>
 
                             <td class="total-value"><?= displayPrice($job['total_price']) ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="blank"> </td>
-                            <td colspan="2" class="total-line balance">Balance Due</td>
-                            <td class="total-value balance"><div class="due"><?= displayPrice(0.00) ?></div></td>
                         </tr>
 
                     </table>

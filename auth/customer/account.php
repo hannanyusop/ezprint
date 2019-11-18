@@ -21,7 +21,6 @@ $result = $db->query("SELECT * FROM credit_transaction WHERE account_id=$user[ac
                 <th>Amount</th>
                 <th>Current Balance</th>
                 <th>Created At</th>
-                <th></th>
             </tr>
             <?php if($result->num_rows > 0){ while($transaction = $result->fetch_assoc()){ ;?>
                 <tr style="color: <?=($transaction['type'] == 2)? '#E71800' : '#0078e7' ?>">
@@ -34,9 +33,6 @@ $result = $db->query("SELECT * FROM credit_transaction WHERE account_id=$user[ac
                     <td><?= ($transaction['type'] == 2)? "-".displayPrice($transaction['amount']) : "+".displayPrice($transaction['amount']);  ?></td>
                     <td><?= displayPrice($transaction['current_balance']) ?></td>
                     <td><?= $transaction['created_at'] ?></td>
-                    <td>
-                        <a href="receipt">View Receipt</a>
-                    </td>
                 </tr>
             <?php } }else{ ?>
                 <tr>
