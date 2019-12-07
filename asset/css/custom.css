@@ -276,6 +276,7 @@ th {
     padding-bottom: 0.7em;
     padding-top: 0.7em;
     background: #2fa156;
+    color: #ffffff;
 }
 tr:not(:first-child):hover {
     background: rgba(0, 0, 0, 0.1);

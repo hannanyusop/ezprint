@@ -153,7 +153,21 @@ function getOption($name, $default = ''){
 
 function sendEmail($recipient_email, $subject, $body){
 
-    require $_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php";
+
+    #check $GLOBALS['send_email']
+
+    if(!$GLOBALS['send_email']){
+        return true;
+    }
+
+
+    if($GLOBALS['xampp_macos']){
+
+        include '../../vendor/autoload.php';
+
+    }else{
+        require $_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php";
+    }
 
     $mail = new PHPMailer(true);
 

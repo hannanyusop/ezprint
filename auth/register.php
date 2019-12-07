@@ -13,7 +13,7 @@
             <img src="../asset/image/logo.png" class="login-logo">
             <p>Create New Account</p>
             <input type="text" name="full_name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address"/>
+            <input type="email" name="email" placeholder="Email Address"required>
             <button type="submit" name="register">Create Account</button>
             <p class="message">Already registered? <a href="login.php">Sign In</a></p>
         </form>

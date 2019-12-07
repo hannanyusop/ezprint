@@ -1,47 +1,61 @@
 <html lang="en">
 <?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/aside.php') ?>
+
 <?php
 
 
-    $c = getOption('price_colour', 0.20);
-    $bnw = getOption('price_black_and_white', 0.10);
+$c = getOption('price_colour', 0.20);
+$bnw = getOption('price_black_and_white', 0.10);
 
-    if(isset($_POST['submit'])){
+if(isset($_POST['submit'])){
 
-        $mpdf = new \Mpdf\Mpdf();
-        $target_dir = "../../asset/uploads/";
+    $mpdf = new \Mpdf\Mpdf();
+    $target_dir = "../../asset/uploads/";
 
-        $temp = explode(".", $_FILES["file"]["name"]);
-        $rename = round(microtime(true)) . '.' . end($temp);
-        $file_location = $target_dir.$rename;
+    $temp = explode(".", $_FILES["file"]["name"]);
+    $rename = round(microtime(true)) . '.' . end($temp);
+    $file_location = $target_dir.$rename;
 
-        if(isset($_FILES['file']['type']) && $_FILES['file']['type'] == 'application/pdf'){
+    if(isset($_FILES['file']['type']) && $_FILES['file']['type'] == 'application/pdf'){
 
-            try{
-                move_uploaded_file($_FILES["file"]["tmp_name"], $file_location);
-            }catch (Exception $e){
-                var_dump($e);exit();
-            }
+
+        #check if file more than 10MB
+        if($_FILES['file']['size'] > 10000000){
+            echo "<script>alert('Ops! Exceed file limit.(10MB)');window.location='job-step-1.php';</script>";
+        }
+
+        try{
+            move_uploaded_file($_FILES["file"]["tmp_name"], $file_location);
+        }catch (Exception $e){
+            var_dump($e);exit();
+        }
+
+        try{
 
             $mpdf->SetImportUse();
             $totalPage = $mpdf->SetSourceFile($file_location);
 
-            $job = ['file' => $file_location, 'total_page' => $totalPage];
-            $_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
-
-        }else{
-            echo "<script>alert('Format File not supported!');window.location='job-step-1.php'</script>";exit();
+        }catch (Exception $e){
+            echo "<script>alert('Ops! This system can\'t compress your PDF. Try another file.');window.location='job-step-1.php';</script>";
+            exit();
         }
 
 
+        $job = ['file' => $file_location, 'total_page' => $totalPage];
+        $_SESSION['jobs'][$_SESSION['auth']['user_id']] = $job;
+
     }else{
-        $totalPage = $_SESSION['jobs'][$_SESSION['auth']['user_id']]['total_page'];
+        echo "<script>alert('Format File not supported!');window.location='job-step-1.php'</script>";exit();
     }
 
-?>
-<?php include_once('layout/aside.php') ?>
 
+}else{
+    $totalPage = $_SESSION['jobs'][$_SESSION['auth']['user_id']]['total_page'];
+}
+
+?>
 
 <main role="main">
     <div class="offset-3">

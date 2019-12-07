@@ -11,8 +11,8 @@
                 <div class="content">
                     <div class="content">
                         <label>1. Select File</label>
-                        <input type="file" name="file" accept="application/pdf">
-                        <small class="text-info text-sm">*Only PDF format allowed</small><br>
+                        <input type="file" name="file" accept="application/pdf" required>
+                        <small class="text-info text-sm">*Format : PDF | Max Limit : 10 MB </small><br>
                     </div>
 
                     <div class="float-right content">

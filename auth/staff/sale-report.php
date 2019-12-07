@@ -17,7 +17,7 @@ if(isset($_GET['year'])){
 $reject = $done = $income = array();
 foreach (getStrMonth() as $key => $month){
 
-    $query = $db->query("SELECT SUM(total_price) as total,COUNT(*) as count FROM jobs WHERE status=3 AND YEAR(created_at)=$year AND MONTH(created_at)=$key");
+    $query = $db->query("SELECT SUM(total_price) as total,COUNT(*) as count FROM jobs WHERE status in(3,5) AND YEAR(created_at)=$year AND MONTH(created_at)=$key");
     $result = $query->fetch_assoc();
 
     $r = $db->query("SELECT SUM(total_price) as total,COUNT(*) as count FROM jobs WHERE status=4 AND YEAR(created_at)=$year AND MONTH(created_at)=$key");

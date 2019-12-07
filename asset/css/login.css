@@ -100,11 +100,11 @@ p{
     color: #EF3B3A;
 }
 body {
-    background: #969696; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #969696, #969696);
-    background: -moz-linear-gradient(right, #969696, #969696);
-    background: -o-linear-gradient(right, #969696, #969696);
-    background: linear-gradient(to bottom, #fffafa, #454545);
+    background: #fffdf5; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #215b2d, #215b2d);
+    background: -moz-linear-gradient(right, #215b2d, #215b2d);
+    background: -o-linear-gradient(right, #215b2d, #215b2d);
+    background: linear-gradient(to bottom, #215b2d, #215b2d);
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

@@ -4,6 +4,12 @@
     $user_id = $_SESSION['auth']['user_id'];
     $job = $_SESSION['jobs'][$user_id];
 
+    #recheck credit balance
+    if($user['credit_balance'] < $job['subtotal']){
+        echo "<script>alert('Ops! not enough balance!');</script>";
+        header('Location:job-step-2.php'); exit();
+    }
+
     #inserting job
     $job_sql = "INSERT INTO jobs (customer_id, staff_id, file, total_page, printing_mode, printing_mode_price, status, total_price, pickup_date, created_at) 
                 VALUES ($user_id , 0, '$job[file]',$job[total_page],$job[mode], $job[mode_price], 1, $job[subtotal],  '$job[datetime]' , CURRENT_TIMESTAMP)";
