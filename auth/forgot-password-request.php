@@ -31,7 +31,6 @@ require_once '../env.php';
 
 if(isset($_POST['forgot'])){
 
-    #check if email is unique
     if(isset($_POST['email'])){
 
         $user_q = $db->query("SELECT * FROM users WHERE email='$_POST[email]'");
@@ -50,8 +49,8 @@ if(isset($_POST['forgot'])){
 
         $body = "Ops,<br><br>
             <p>You've request to recover password on ".date("m/d/Y h:i:s a", time())." <i>IP ADDRESS: $_SERVER[REMOTE_ADDR]</i><br>
-            To recover password please click this <a href='http://$_SERVER[HTTP_HOST]/auth/forgot-password.php?key=$key'>Link</a>.
-            If link not working, copy 'http://$_SERVER[HTTP_HOST]/auth/forgot-password.php?key=$key' and paste to your browser's address bar.
+            To recover password please click this <a href='http://$_SERVER[HTTP_HOST]/ezprint/auth/forgot-password.php?key=$key'>Link</a>.
+            If link not working, copy 'http://$_SERVER[HTTP_HOST]/ezprint/auth/forgot-password.php?key=$key' and paste to your browser's address bar.
              If you not request this, please call Customer Service 06-425635654543 or drop an email at help@ezprint.my</p>
             
             <br><br>
