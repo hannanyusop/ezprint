@@ -1,6 +1,6 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/header.php') ?>
 <?php include_once('layout/aside.php') ?>
 <?php
 $result = $db->query("SELECT * FROM credit_transaction WHERE account_id=$user[account_id] ORDER BY created_at DESC");

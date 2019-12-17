@@ -5,6 +5,7 @@
     <title>ezPrint</title>
     <img style="margin-left: 30px;margin-top: auto" src="../../asset/image/logo.png" height="95">
     <ul class="utilities">
+        <li class="credit text-success font-weight-bold"><a href="../customer/account.php"><?= displayPrice($user['credit_balance']) ?></a></li>
         <li class="users"><a href="../customer/account-update.php">My Account</a></li>
         <li class="logout"><a href="../../auth/logout.php">Log Out</a></li>
     </ul>

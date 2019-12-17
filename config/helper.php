@@ -242,3 +242,7 @@ function getPrintingMode($mode = null){
 
     return (is_null($mode))? $modes : $modes[$mode];
 }
+function getCheckedAddOn($addOnId){
+
+    return (isset($_SESSION['jobs'][$_SESSION['auth']['user_id']]['addOn'][$addOnId]))? 'CHECKED' : '';
+}

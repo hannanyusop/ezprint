@@ -1,6 +1,6 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/header.php') ?>
 <?php
     $user_id = $_SESSION['auth']['user_id'];
     $jobs = $_SESSION['jobs'][$user_id];

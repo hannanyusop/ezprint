@@ -60,6 +60,10 @@ header[role=banner] .utilities li a {
 .users a:before {
     content: "\f007";
 }
+.credit a:before{
+    content: "\f155";
+    color: #27ae60;
+}
 nav[role=navigation] {
     background: #202020;
     color: #ffffff;

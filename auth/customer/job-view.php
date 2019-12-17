@@ -1,6 +1,6 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/header.php') ?>
 <?php
     if(isset($_GET['id'])){
         $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id AND id=$_GET[id]");
@@ -30,6 +30,8 @@
                 <span>Total Paid: <?= displayPrice($job['total_price']); ?></span><br><br>
                 <span class="">Pickup Security Code: <?= $job['pickup_code'] ?></span><br>
                 <small class="text-info text-sm">Pickup Security Code will be generate after job completed.</small>
+
+                <br><br>Reason:<br><small class="text-info"> <?= $job['notes'] ?></small><br>
 
 
                 <p>Add on:</p>

@@ -1,6 +1,6 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/header.php') ?>
 <?php
     if(isset($_GET['id'])){
 

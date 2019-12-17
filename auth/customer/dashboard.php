@@ -1,6 +1,6 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/header.php') ?>
 <?php include_once('layout/aside.php') ?>
 <?php
 $result = $db->query("SELECT * FROM jobs WHERE customer_id=$user_id AND status !=5 ORDER BY status ASC LIMIT 10");

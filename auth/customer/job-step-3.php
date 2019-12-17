@@ -1,6 +1,6 @@
 <html lang="en">
-<?php include_once('layout/header.php') ?>
 <?php include_once('../permission_customer.php') ?>
+<?php include_once('layout/header.php') ?>
 <?php include_once('layout/aside.php') ?>
 
 <?php
@@ -42,6 +42,8 @@
             echo "<script>alert('Ops! Please select time between 10 AM to 10 PM');window.location='job-step-2.php'</script>";exit();
         }
 
+    }elseif (isset($_SESSION['jobs'][$user_id]['colour'])){
+        $jobs = $_SESSION['jobs'][$user_id];
     }else{
         echo "<script>alert('Invalid action');window.location='job-step-1.php'</script>";
     }
@@ -63,7 +65,7 @@
                     <label>4. Pick Add-on</label>
                     <div id="pricelist" class="content">
                         <?php if($result->num_rows > 0){ while($add = $result->fetch_assoc()){ ;?>
-                            <input type="checkbox" name="add-on[]" value="<?= $add['id'] ?>" data-price="<?= $add['price']; ?>"> <?= $add['name']."(".displayPrice($add['price']).")" ?><br>
+                            <input type="checkbox" name="add-on[]" value="<?= $add['id'] ?>" data-price="<?= $add['price']; ?>" <?= getCheckedAddOn($add['id']) ?>> <?= $add['name']."(".displayPrice($add['price']).")" ?><br>
                         <?php } }else{ ?>
                             <p>No Add On</p>
                         <?php } ?>
