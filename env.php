@@ -14,10 +14,10 @@ include_once 'config/db_config.php';
 include_once "config/helper.php";
 
 #PHP Mailer
-$GLOBALS['smtp_username'] = 'hannan135589@gmail.com';
-$GLOBALS['smtp_password'] = 'samsungnote3';
+$GLOBALS['smtp_username'] = '';
+$GLOBALS['smtp_password'] = '';
 $GLOBALS['smtp_host'] = 'smtp.gmail.com';
-$GLOBALS['admin_email'] = 'nan_s96@yahoo.com';
+$GLOBALS['admin_email'] = '';
 
 $GLOBALS['xampp_macos'] = true;
 $GLOBALS['send_email'] = true;
